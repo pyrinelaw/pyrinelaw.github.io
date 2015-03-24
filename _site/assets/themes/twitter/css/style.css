@@ -1,7 +1,19 @@
-body{ background: url("img/body_bg.png") repeat;}
+body{
+  background: url("img/body_bg.png") repeat;
+  /*font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;*/
+}
+
 h1{
     font-family: Arial,"楷体";
 }
+
+pre{
+    line-height: 21px;
+}
+code{
+    font-size: 13px;
+}
+
 a{ color: #00A9A9; }
 a:hover{ color: #2ECBD8; }
 
