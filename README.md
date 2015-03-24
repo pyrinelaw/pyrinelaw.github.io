@@ -1,7 +1,4 @@
-# 基于jekyll的个人博客
-
-标签（空格分隔）： 未分类
-
+## 基于jekyll的个人博客
 ---
 [基于jekyll的blog](http://www.jekyll.org)
 
