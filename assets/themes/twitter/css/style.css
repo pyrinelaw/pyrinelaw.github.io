@@ -2,33 +2,40 @@ body{ background: url("img/body_bg.png") repeat;}
 h1{
     font-family: Arial,"楷体";
 }
+a{ color: #00A9A9; }
+a:hover{ color: #2ECBD8; }
+
 .fa.fa-arrow-circle-right{
     margin-right: 15px;
 }
- 
+
 /*navbar bgcolor -- float*/
-.navbar .navbar-inner{ 
+.navbar .navbar-inner{
   background-color: #00a9a9;
   }
 
-.navbar .nav {  
+.navbar .nav {
   float: right; }
 
 
 
 /*page container -- card style -- */
-.nav-narrow{  
+.nav-narrow{
   margin: 0 auto;
   max-width: 900px;}
 
 
 
-.card { 
+.card {
   max-width: 900px;
-  background:#fff; 
+  background:#fff;
   }
 
-.container-narrow > hr { 
+.container-narrow {
+   margin-bottom: 80px;
+}
+
+.container-narrow > hr {
   margin: 30px 0; }
 
 .read_more {
@@ -40,26 +47,26 @@ h1{
 
 /* posts index */
 
-.post > h3.title { 
+.post > h3.title {
   position: relative;
   padding-top: 10px; }
 
-.post > h3.title span.date {  
+.post > h3.title span.date {
   position: absolute;
   right: 0;
   font-size: 0.9em; }
 
-.post > .more { 
+.post > .more {
   margin: 10px 0;
   text-align: left; }
 
 /* post-full*/
-.post-full .date { 
+.post-full .date {
   margin-bottom: 20px;
   font-weight: bold; }
 
 /* tag_box */
-.tag_box { 
+.tag_box {
   list-style: none;
   margin: 0;
   overflow: hidden; }
@@ -70,7 +77,7 @@ h1{
 .tag_box li i {
   opacity: 0.9; }
 
-.tag_box.inline li { 
+.tag_box.inline li {
   float: left; }
 
 .tag_box a {
@@ -98,10 +105,10 @@ h1{
 
 .hat_title{
 /*    margin: 50px 0 20px 0;*/
-    padding: 30px 0 40px 0;
+    padding: 20px 0 20px 5px;
 /*    background-color: rgb(229, 229, 229);*/
 /*    color: rgb(0,173,207);*/
-    font-size: 58px;
+    font-size: 40px;
     font-weight: 100;
     font-family: "楷体";
 }

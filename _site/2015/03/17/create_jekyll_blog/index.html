@@ -1,0 +1,332 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Mac下Jekyll安装</title>
+    
+    <meta name="author" content="Petrus.Law">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/bootstrap/css/bootstrap.2.2.2.min.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/themes/twitter/css/prettify.css" rel="stylesheet" type="text/css">
+    <script src="/assets/themes/twitter/js/prettify.js"></script>
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+<!--    font-awesome-->
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  </head>
+
+  <body onload="prettyPrint()">
+    <div class="navbar">
+      <div class="navbar-inner">
+       <div class="nav-narrow">
+          <a class="brand" href="/"><span class="fa fa-mortar-board (alias)">Petrus.Law</span></a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive.html">文章</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">分类</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">页面</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">标签</a></li>
+      	
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-narrow">
+
+      <div class="content">
+        
+<!--
+<div class="page-header">
+  <h1>Mac下Jekyll安装 <small>Supporting tagline</small></h1>
+</div>
+-->
+ 
+
+<div class="row-fluid post-full">
+  <div class="span12 ">
+    <div class="content card">
+        <div class="date_label">
+          <div class="day_month">
+          03/17
+          </div>
+          <div class="year">
+          2015
+          </div>
+        </div>
+      <h1>Mac下Jekyll安装</h1>
+
+<p><br><br>
+之前一直用Wordpress,虽然功能强大，各种插件各种bug，如果想弄个主题，折腾得要命。最近改用jekyll+gitHub免费空间。记录一下。<br >
+我用的是Mac，所以只讲述Mac下如何安装，Windows如何安装需自行Google</p>
+
+<p><strong>需要环境支持</strong><br>
+Ruby，Mac自带，如果没有请安装</p>
+
+<p><strong>安装Gem</strong><br>
+Gem是Ruby第三方插件管理器<br>
+下载Gem到本地后，在终端输入如下代码</p>
+
+<pre><code class="python">## 检查gem版本
+gem -v
+## 更新Gem(提示权限)
+gem update --system
+</code></pre>
+
+<!--break-->
+
+
+<p><a href="https://rubygems.org/pages/download">官网安装教程</a></p>
+
+<p>gem update --system。这一步需要翻墙，否则会出现404错误。<a href="https://ruby.taobao.org/">解决办法参考</a></p>
+
+<p><strong>安装jekyll</strong></p>
+
+<p>上面安装的Gem派上用场</p>
+
+<pre><code>安装jekyll(提示权限)
+$ gem install jekyll
+安装成功之后，查看版本号
+$ jekyll -v
+</code></pre>
+
+<p><br><strong>使用jekyll</strong><br><br>
+jekyll安装成功之后，可以在终端上执行 jekyll 命令来使用了，有两种方法，一种是自己新建一个jekyll博客，另外一种是使用现成的博客。</p>
+
+<p>我比较懒，当然是直接使用现成的博客了。</p>
+
+<p>我使用的主题  http://enml.github.io/site</p>
+
+<p>不浪费口水，直接撸<br>
+下载主题，在终端中使用命令cd到该主题根目录下；</p>
+
+<pre><code class="">## 博客生成，默认生成再_site目录下，当然也可以在配置文件中自定义
+jekyll build
+## 开启jekyll本地预览
+jekyll server
+</code></pre>
+
+<p>在浏览器中输入 http://localhost:4000 即可访问博客站点<br />
+不能访问请检查_config.yml配置文件是否需要修改</p>
+
+<p><strong>遇到的坑：</strong></p>
+
+<p>较老版本使用 jekyll --server <br />
+执行 jekyll build 命令报错</p>
+
+<pre><code>ERROR: YOUR SITE COULD NOT BE BUILT:
+       Missing dependency: rdiscount
+</code></pre>
+
+<p>解决：rdiscount是 Jekyll依赖的一个包，可以通过安装这个包来解决。</p>
+
+<pre><code>安装rdiscount
+$ gem install rdiscount
+</code></pre>
+
+<p>如果缺少其他包，同理使用 gem install 解决</p>
+
+<p>安装各种依赖包的时候可能会提示权限不足，比如安装rdiscount提示我/usr/bin没有写入权限
+解决：</p>
+
+<pre><code>sudo chmod -R 777
+</code></pre>
+
+<p>安装完毕后将/usr/bin权限设置回操作前的权限。否则下次终端启动时可能报错。</p>
+
+<p><strong>上传GitHub</strong></p>
+
+<p>再_post中放入md文件，文件格式必须遵从YEAR-MONTH-DAY-title.md。<br />
+上传至GitHub后，我们就可以在线查看博客了。<br />
+贴上我的jekyll博客地址 http://pyrinelaw.github.io<br /></p>
+
+<p><strong>附：</strong></p>
+
+<p>由权限问题导致终端启动报错，请使用Mac磁盘工具修复<br />
+新建jekyll博客教程：http://www.jekyll.org/ (╯□╰ 需要翻墙)<br />
+也可以去这个网站上找各种主题 http://jekyllthemes.org/<br />
+尊重他人劳动成果，引用他人主题请注明出处<br /></p>
+
+    </div>
+
+ 
+<!--
+    <ul class="tag_box inline ">
+      <li><i class="icon-folder-open"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/categories.html#技术分享-ref">
+    		技术分享 <span>1</span>
+    	</a></li>
+    
+  
+
+
+    </ul>
+    
+
+  
+    <ul class="tag_box inline ">
+      <li><i class="icon-tags"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/tags.html#Jekyll-ref">Jekyll <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#blog-ref">blog <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#技术-ref">技术 <span>1</span></a></li>
+    
+  
+
+
+
+    </ul>
+    -->
+    
+    <div class="pagination clearfix">
+      <ul class = "pull-right">
+      
+        <li class="prev disabled" ><a class="fa fa-arrow-circle-left"> 前一篇</a></li>
+      
+        <li><a class="fa fa-th" href="/archive.html"> 所有日志</a></li>
+      
+        <li class="next disabled"><a >后一篇 <span class="fa fa-arrow-circle-right">  </span></a>
+      
+      </ul>
+    </div>
+    
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'petruslaw'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
+</div>
+
+
+      </div>
+
+      <footer class="card clearfix">
+        <!-- <span style="font-size:30px;"class="fa fa-github pull-left"></span><a href="https://github.com/pyrinelaw" style="display:inline-block;padding-right:80px;border-right:1px solid #bbb">fork me on GitHub</a> -->
+        <!-- p class="pull-right">&copy; 2015 Petrus.Law
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+        <div class="referenceTo">
+          <span>博客主题引用自</span> <a href="https://github.com/enml/blog/tree/jekyll-blog" target="_blank" title="The Definitive Jekyll Blogging Framework">https://github.com/enml/blog/tree/jekyll-blog</a>
+        </div-->
+        <p>
+          <span style="font-size:30px;"class="fa fa-github pull-left"></span><a href="https://github.com/pyrinelaw">fork me on GitHub</a>
+        </p>
+        <p>
+          <span>博客主题部分样式引用自</span> <a href="https://github.com/enml/blog/tree/jekyll-blog" target="_blank" title="The Definitive Jekyll Blogging Framework">https://github.com/enml/blog/tree/jekyll-blog</a>
+        </p>
+        <p>&copy; 2015 Petrus.Law
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </footer>
+
+    </div>
+
+    
+  </body>
+</html>
+

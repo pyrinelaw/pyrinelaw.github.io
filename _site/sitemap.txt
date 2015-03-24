@@ -1,20 +1,11 @@
 
-http://pyrinelaw.github.io//archive.html
-http://pyrinelaw.github.io//atom.xml
-http://pyrinelaw.github.io//categories.html
-http://pyrinelaw.github.io//index.html
-http://pyrinelaw.github.io//pages.html
-http://pyrinelaw.github.io//rss.xml
-http://pyrinelaw.github.io//sitemap.txt
-http://pyrinelaw.github.io//tags.html
+http://pyrinelaw.github.io/archive.html
+http://pyrinelaw.github.io/atom.xml
+http://pyrinelaw.github.io/categories.html
+http://pyrinelaw.github.io/index.html
+http://pyrinelaw.github.io/pages.html
+http://pyrinelaw.github.io/rss.xml
+http://pyrinelaw.github.io/sitemap.txt
+http://pyrinelaw.github.io/tags.html
 
-http://pyrinelaw.github.io//2014/05/20/collect_color
-http://pyrinelaw.github.io//2014/05/10/template
-http://pyrinelaw.github.io//2014/05/03/view_render
-http://pyrinelaw.github.io//2014/04/27/install-jekyll
-http://pyrinelaw.github.io//2014/04/25/python-code
-http://pyrinelaw.github.io//2014/04/24/directory
-http://pyrinelaw.github.io//2014/04/23/finish-jekyll
-http://pyrinelaw.github.io//2014/04/23/chinese-messy-code
-http://pyrinelaw.github.io//2014/04/21/future
-http://pyrinelaw.github.io//2011/01/12/prime
+http://pyrinelaw.github.io/2015/03/17/create_jekyll_blog
