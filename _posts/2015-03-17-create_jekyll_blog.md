@@ -11,7 +11,7 @@ tags : [Jekyll, blog, 技术]
 <br><br>
 之前一直用Wordpress,虽然功能强大，各种插件各种bug，如果想弄个主题，折腾得要命。最近改用jekyll+gitHub免费空间。记录一下。<br >
 我用的是Mac，所以只讲述Mac下如何安装，Windows如何安装需自行Google
-    
+
 **需要环境支持**<br>
 Ruby，Mac自带，如果没有请安装
 
@@ -27,9 +27,9 @@ gem update --system
 ```
 <!--break-->
 
-[官网安装教程](https://rubygems.org/pages/download)
+官网安装教程：[https://rubygems.org/pages/download](https://rubygems.org/pages/download)
 
-gem update --system。这一步需要翻墙，否则会出现404错误。[解决办法参考](https://ruby.taobao.org/)
+gem update --system。这一步需要翻墙，否则会出现404错误。解决办法参考：[https://ruby.taobao.org/](https://ruby.taobao.org/)
 
 
 **安装jekyll**
@@ -48,12 +48,12 @@ jekyll安装成功之后，可以在终端上执行 jekyll 命令来使用了，
 
 我比较懒，当然是直接使用现成的博客了。
 
-我使用的主题  http://enml.github.io/site 
+我使用的主题：[http://enml.github.io/site](http://enml.github.io/site)
 
 不浪费口水，直接撸<br>
 下载主题，在终端中使用命令cd到该主题根目录下；
 
-``` 
+```
 ## 博客生成，默认生成再_site目录下，当然也可以在配置文件中自定义
 jekyll build
 ## 开启jekyll本地预览
@@ -96,13 +96,13 @@ sudo chmod -R 777
 
 再_post中放入md文件，文件格式必须遵从YEAR-MONTH-DAY-title.md。<br />
 上传至GitHub后，我们就可以在线查看博客了。<br />
-贴上我的jekyll博客地址 http://pyrinelaw.github.io<br />
+贴上我的jekyll博客地址 [http://pyrinelaw.github.io](http://pyrinelaw.github.io)<br />
 
 **附：**
 
 由权限问题导致终端启动报错，请使用Mac磁盘工具修复<br />
-新建jekyll博客教程：http://www.jekyll.org/ (╯□╰ 需要翻墙)<br />
-也可以去这个网站上找各种主题 http://jekyllthemes.org/<br />
+新建jekyll博客教程：[http://www.jekyll.org/](http://www.jekyll.org/) (╯□╰ 需要翻墙)<br />
+也可以去这个网站上找各种主题：[http://jekyllthemes.org/](http://jekyllthemes.org/)<br />
 尊重他人劳动成果，引用他人主题请注明出处<br />
 
 
