@@ -5,8 +5,8 @@
         <description>Petrus.Law - Petrus.Law</description>
         <link>http://pyrinelaw.github.io</link>
         <link>http://pyrinelaw.github.io</link>
-        <lastBuildDate>2015-03-24T23:34:43+08:00</lastBuildDate>
-        <pubDate>2015-03-24T23:34:43+08:00</pubDate>
+        <lastBuildDate>2015-03-26T10:53:23+08:00</lastBuildDate>
+        <pubDate>2015-03-26T10:53:23+08:00</pubDate>
         <ttl>1800</ttl>
 
 
@@ -34,9 +34,9 @@ gem update --system
 &lt;!--break--&gt;
 
 
-&lt;p&gt;&lt;a href=&quot;https://rubygems.org/pages/download&quot;&gt;官网安装教程&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;官网安装教程：&lt;a href=&quot;https://rubygems.org/pages/download&quot;&gt;https://rubygems.org/pages/download&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;gem update --system。这一步需要翻墙，否则会出现404错误。&lt;a href=&quot;https://ruby.taobao.org/&quot;&gt;解决办法参考&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;gem update --system。这一步需要翻墙，否则会出现404错误。解决办法参考：&lt;a href=&quot;https://ruby.taobao.org/&quot;&gt;https://ruby.taobao.org/&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;安装jekyll&lt;/strong&gt;&lt;/p&gt;
 
@@ -53,12 +53,12 @@ jekyll安装成功之后，可以在终端上执行 jekyll 命令来使用了，
 
 &lt;p&gt;我比较懒，当然是直接使用现成的博客了。&lt;/p&gt;
 
-&lt;p&gt;我使用的主题  http://enml.github.io/site&lt;/p&gt;
+&lt;p&gt;我使用的主题：&lt;a href=&quot;http://enml.github.io/site&quot;&gt;http://enml.github.io/site&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;不浪费口水，直接撸&lt;br&gt;
 下载主题，在终端中使用命令cd到该主题根目录下；&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&quot;&quot;&gt;## 博客生成，默认生成再_site目录下，当然也可以在配置文件中自定义
+&lt;pre&gt;&lt;code&gt;## 博客生成，默认生成再_site目录下，当然也可以在配置文件中自定义
 jekyll build
 ## 开启jekyll本地预览
 jekyll server
@@ -96,13 +96,13 @@ $ gem install rdiscount
 
 &lt;p&gt;再_post中放入md文件，文件格式必须遵从YEAR-MONTH-DAY-title.md。&lt;br /&gt;
 上传至GitHub后，我们就可以在线查看博客了。&lt;br /&gt;
-贴上我的jekyll博客地址 http://pyrinelaw.github.io&lt;br /&gt;&lt;/p&gt;
+贴上我的jekyll博客地址 &lt;a href=&quot;http://pyrinelaw.github.io&quot;&gt;http://pyrinelaw.github.io&lt;/a&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;附：&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;由权限问题导致终端启动报错，请使用Mac磁盘工具修复&lt;br /&gt;
-新建jekyll博客教程：http://www.jekyll.org/ (╯□╰ 需要翻墙)&lt;br /&gt;
-也可以去这个网站上找各种主题 http://jekyllthemes.org/&lt;br /&gt;
+新建jekyll博客教程：&lt;a href=&quot;http://www.jekyll.org/&quot;&gt;http://www.jekyll.org/&lt;/a&gt; (╯□╰ 需要翻墙)&lt;br /&gt;
+也可以去这个网站上找各种主题：&lt;a href=&quot;http://jekyllthemes.org/&quot;&gt;http://jekyllthemes.org/&lt;/a&gt;&lt;br /&gt;
 尊重他人劳动成果，引用他人主题请注明出处&lt;br /&gt;&lt;/p&gt;
 </description>
                 <link>http://pyrinelaw.github.io/2015/03/17/create_jekyll_blog</link>

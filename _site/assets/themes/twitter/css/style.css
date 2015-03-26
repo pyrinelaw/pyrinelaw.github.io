@@ -38,6 +38,10 @@ a:hover{ color: #2ECBD8; }
 
 
 
+.navbar .nav>li>a:visited{
+  color: #FFF;
+}
+
 .card {
   max-width: 900px;
   background:#fff;
@@ -120,7 +124,7 @@ a:hover{ color: #2ECBD8; }
     padding: 20px 0 20px 5px;
 /*    background-color: rgb(229, 229, 229);*/
 /*    color: rgb(0,173,207);*/
-    font-size: 40px;
+    font-size: 36px;
     font-weight: 100;
     font-family: "楷体";
 }

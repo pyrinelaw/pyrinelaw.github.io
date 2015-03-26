@@ -2,6 +2,7 @@
 http://pyrinelaw.github.io/archive.html
 http://pyrinelaw.github.io/atom.xml
 http://pyrinelaw.github.io/categories.html
+http://pyrinelaw.github.io/pro/index.html
 http://pyrinelaw.github.io/index.html
 http://pyrinelaw.github.io/pages.html
 http://pyrinelaw.github.io/rss.xml
