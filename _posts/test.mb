@@ -1,0 +1,21 @@
+---
+layout: post
+title: test
+category : 技术分享
+tagline: "Supporting tagline"
+tags : [Jekyll, blog, 技术]
+---
+{% include JB/setup %}
+# Mac下Jekyll安装
+
+test
+
+
+
+
+
+
+
+
+
+
