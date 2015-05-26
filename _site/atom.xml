@@ -1,22 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
  
- <title>Petrus.Law</title>
- <link href="http://pyrinelaw.github.io/" rel="self"/>
- <link href="http://pyrinelaw.github.io"/>
- <updated>2015-03-31T11:44:45+08:00</updated>
- <id>http://pyrinelaw.github.io</id>
+ <title>windyer</title>
+ <link href="http://windyer.github.io/" rel="self"/>
+ <link href="http://windyer.github.io"/>
+ <updated>2015-05-26T23:51:33+08:00</updated>
+ <id>http://windyer.github.io</id>
  <author>
-   <name>Petrus.Law</name>
-   <email>petrus.law@outlook.com</email>
+   <name>windyer</name>
+   <email>windyer1314@foxmail.com</email>
  </author>
 
  
  <entry>
+   <title>test</title>
+   <link href="http://windyer.github.io/2015/05/23/1_je_a"/>
+   <updated>2015-05-23T00:00:00+08:00</updated>
+   <id>http://windyer.github.io/2015/05/23/1_je_a</id>
+   <content type="html">&lt;h1&gt;这是一个测试&lt;/h1&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;br&gt;
+test&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+
+
+</content>
+ </entry>
+ 
+ <entry>
    <title>Mac下Jekyll安装</title>
-   <link href="http://pyrinelaw.github.io/2015/03/17/create_jekyll_blog"/>
+   <link href="http://windyer.github.io/2015/03/17/create_jekyll_blog"/>
    <updated>2015-03-17T00:00:00+08:00</updated>
-   <id>http://pyrinelaw.github.io/2015/03/17/create_jekyll_blog</id>
+   <id>http://windyer.github.io/2015/03/17/create_jekyll_blog</id>
    <content type="html">&lt;h1&gt;Mac下Jekyll安装&lt;/h1&gt;
 
 &lt;p&gt;&lt;br&gt;&lt;br&gt;
@@ -109,6 +126,23 @@ $ gem install rdiscount
 新建jekyll博客教程：&lt;a href=&quot;http://www.jekyll.org/&quot;&gt;http://www.jekyll.org/&lt;/a&gt; (╯□╰ 需要翻墙)&lt;br /&gt;
 也可以去这个网站上找各种主题：&lt;a href=&quot;http://jekyllthemes.org/&quot;&gt;http://jekyllthemes.org/&lt;/a&gt;&lt;br /&gt;
 尊重他人劳动成果，引用他人主题请注明出处&lt;br /&gt;&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>test</title>
+   <link href="http://windyer.github.io/2013/05/23/1_je_a"/>
+   <updated>2013-05-23T00:00:00+08:00</updated>
+   <id>http://windyer.github.io/2013/05/23/1_je_a</id>
+   <content type="html">&lt;h1&gt;这是一个测试&lt;/h1&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;br&gt;
+test&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+
+
 </content>
  </entry>
  

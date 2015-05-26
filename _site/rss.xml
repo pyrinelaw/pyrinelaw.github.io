@@ -1,14 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0">
 <channel>
-        <title>Petrus.Law</title>
-        <description>Petrus.Law - Petrus.Law</description>
-        <link>http://pyrinelaw.github.io</link>
-        <link>http://pyrinelaw.github.io</link>
-        <lastBuildDate>2015-03-31T11:44:45+08:00</lastBuildDate>
-        <pubDate>2015-03-31T11:44:45+08:00</pubDate>
+        <title>windyer</title>
+        <description>windyer - windyer</description>
+        <link>http://windyer.github.io</link>
+        <link>http://windyer.github.io</link>
+        <lastBuildDate>2015-05-26T23:51:33+08:00</lastBuildDate>
+        <pubDate>2015-05-26T23:51:33+08:00</pubDate>
         <ttl>1800</ttl>
 
+
+        <item>
+                <title>test</title>
+                <description>&lt;h1&gt;这是一个测试&lt;/h1&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;br&gt;
+test&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+
+
+</description>
+                <link>http://windyer.github.io/2015/05/23/1_je_a</link>
+                <guid>http://windyer.github.io/2015/05/23/1_je_a</guid>
+                <pubDate>2015-05-23T00:00:00+08:00</pubDate>
+        </item>
 
         <item>
                 <title>Mac下Jekyll安装</title>
@@ -105,9 +122,26 @@ $ gem install rdiscount
 也可以去这个网站上找各种主题：&lt;a href=&quot;http://jekyllthemes.org/&quot;&gt;http://jekyllthemes.org/&lt;/a&gt;&lt;br /&gt;
 尊重他人劳动成果，引用他人主题请注明出处&lt;br /&gt;&lt;/p&gt;
 </description>
-                <link>http://pyrinelaw.github.io/2015/03/17/create_jekyll_blog</link>
-                <guid>http://pyrinelaw.github.io/2015/03/17/create_jekyll_blog</guid>
+                <link>http://windyer.github.io/2015/03/17/create_jekyll_blog</link>
+                <guid>http://windyer.github.io/2015/03/17/create_jekyll_blog</guid>
                 <pubDate>2015-03-17T00:00:00+08:00</pubDate>
+        </item>
+
+        <item>
+                <title>test</title>
+                <description>&lt;h1&gt;这是一个测试&lt;/h1&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;br&gt;
+test&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+
+
+</description>
+                <link>http://windyer.github.io/2013/05/23/1_je_a</link>
+                <guid>http://windyer.github.io/2013/05/23/1_je_a</guid>
+                <pubDate>2013-05-23T00:00:00+08:00</pubDate>
         </item>
 
 
