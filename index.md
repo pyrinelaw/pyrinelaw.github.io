@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Petrus.Law
-tagline: Petrus.Law 's blog !!!
+title: windyer
+tagline: windyer 's blog !!!
 ---
 {% include JB/setup %}
 
