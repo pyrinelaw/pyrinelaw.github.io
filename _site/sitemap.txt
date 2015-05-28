@@ -9,6 +9,7 @@ http://windyer.github.io/rss.xml
 http://windyer.github.io/sitemap.txt
 http://windyer.github.io/tags.html
 
+http://windyer.github.io/2015/05/27/1pythongame
 http://windyer.github.io/2015/05/23/1_je_a
 http://windyer.github.io/2015/03/17/create_jekyll_blog
 http://windyer.github.io/2013/05/23/1_je_a
