@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/favicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Html5,移动开发,控件,Css3," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="最近一直在WAP端页面的开发，一直都知道wap端点击相关问题存在延迟。之前做的网页大部分使用a链接进行，一直未入此坑。最近做的一个WAP网站，各种点击，hover事件，如果使用PC端网页的做法,直接使用js click事件与css中的hover伪类。视觉效果与用户体验很差。">
+<meta name="keywords" content="Html5,移动开发,控件,Css3">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WAP页面点击与hover延迟解决之道">
+<meta property="og:url" content="http://pyrinelaw.github.io/2015/09/21/pFastCorres/index.html">
+<meta property="og:site_name" content="Petrus.Law">
+<meta property="og:description" content="最近一直在WAP端页面的开发，一直都知道wap端点击相关问题存在延迟。之前做的网页大部分使用a链接进行，一直未入此坑。最近做的一个WAP网站，各种点击，hover事件，如果使用PC端网页的做法,直接使用js click事件与css中的hover伪类。视觉效果与用户体验很差。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-10T14:35:42.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="WAP页面点击与hover延迟解决之道">
+<meta name="twitter:description" content="最近一直在WAP端页面的开发，一直都知道wap端点击相关问题存在延迟。之前做的网页大部分使用a链接进行，一直未入此坑。最近做的一个WAP网站，各种点击，hover事件，如果使用PC端网页的做法,直接使用js click事件与css中的hover伪类。视觉效果与用户体验很差。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://pyrinelaw.github.io/2015/09/21/pFastCorres/"/>
+
+
+
+
+
+  <title>WAP页面点击与hover延迟解决之道 | Petrus.Law</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-68262129-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?3655bb5625587dd10b4da17ff63e097b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Petrus.Law</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">努力工作, 好好生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'c24_xtFoKsjzBXkTkY7Q','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://pyrinelaw.github.io/2015/09/21/pFastCorres/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Petrus.Law">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Petrus.Law">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">WAP页面点击与hover延迟解决之道</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-09-21T00:00:00+08:00">
+                2015-09-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/开发随笔/" itemprop="url" rel="index">
+                    <span itemprop="name">开发随笔</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/09/21/pFastCorres/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/21/pFastCorres/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近一直在WAP端页面的开发，一直都知道wap端点击相关问题存在延迟。之前做的网页大部分使用a链接进行，一直未入此坑。<br>最近做的一个WAP网站，各种点击，hover事件，如果使用PC端网页的做法,直接使用js click事件与css中的hover伪类。<br>视觉效果与用户体验很差。<br><a id="more"></a></p>
+<h2 id="click的坑"><a href="#click的坑" class="headerlink" title="click的坑:"></a>click的坑:</h2><h3 id="存在延迟"><a href="#存在延迟" class="headerlink" title="存在延迟"></a>存在延迟</h3><p>移动端处理事件优先级别: </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 触摸事件 &gt; 连续 &gt; 点击事件</span><br><span class="line">touch &gt; douchtouch &gt; click</span><br></pre></td></tr></table></figure>
+<p>浏览器在触摸完毕后会检测连续触摸事件，判断是否需要执行放大缩小效果，最后才是click事件。点击延迟由此而生。</p>
+<p>chrome浏览器下解决方法最简单粗暴:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>width=device-width, 设置网页宽度为设备宽度<br>initial-scale=1, 初始缩放为1<br>maximum-scale=1, 最大缩放为1<br>user-scalable=no, 禁止缩放</p>
+<p><strong>但同样使用webkit内核的safri浏览器却不生效。</strong></p>
+<h3 id="IE也是有自己的解决方法的"><a href="#IE也是有自己的解决方法的" class="headerlink" title="IE也是有自己的解决方法的:"></a>IE也是有自己的解决方法的:</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">target</span>: &#123;</span><br><span class="line">    <span class="attribute">-ms-touch-action</span>: none; <span class="comment">/* IE10 */</span> </span><br><span class="line">    <span class="attribute">touch-action</span>: none;     <span class="comment">/* IE11 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果整个网页都不需要考虑放大缩小效果的话，直接附加在body上即可</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">-ms-touch-action</span>: none; <span class="comment">/* IE10 */</span> </span><br><span class="line">    <span class="attribute">touch-action</span>: none;     <span class="comment">/* IE11 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="其他浏览器只能依靠js代码来解决"><a href="#其他浏览器只能依靠js代码来解决" class="headerlink" title="其他浏览器只能依靠js代码来解决:"></a>其他浏览器只能依靠js代码来解决:</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">'target'</span>).addEventListener(<span class="string">'touchend'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; </span><br><span class="line">    <span class="comment">/* 点击事件回调函数 */</span></span><br><span class="line"> &#125;, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="hover"><a href="#hover" class="headerlink" title="hover:"></a>hover:</h2><h3 id="hover样式不一定生效生效"><a href="#hover样式不一定生效生效" class="headerlink" title=":hover样式不一定生效生效"></a>:hover样式不一定生效生效</h3><p>由于手机浏览器并没有鼠标指针事件，w3c对此没有明文规范，各个浏览器对于hover的处理不尽相同。<br>有的浏览器:hover 会生效，但是当触摸移出元素后hover还是会生效，再次开始触摸点击会移除hover效果。<br>有的浏览器只有在A连接元素上hover才会生效。<br>当然会想到 <strong>：active</strong> 这个伪类，然而在绝大部分手机浏览器下，并没有什么卵用。直接不支持 :<strong>：active</strong> 伪类。</p>
+<h3 id="解决方法："><a href="#解决方法：" class="headerlink" title="解决方法："></a>解决方法：</h3><p>虽然手机浏览器中没有鼠标指针，但是有Touch事件。</p>
+<h3 id="css增加hover样式"><a href="#css增加hover样式" class="headerlink" title="css增加hover样式:"></a>css增加hover样式:</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.target</span><span class="selector-pseudo">:hover</span>,  <span class="selector-class">.target</span><span class="selector-class">.hover</span> &#123; <span class="comment">/* hover样式 */</span> &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="js添加hover"><a href="#js添加hover" class="headerlink" title="js添加hover"></a>js添加hover</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> target= <span class="built_in">document</span>.getElementById(<span class="string">'id'</span>);</span><br><span class="line"></span><br><span class="line">target.addEventListener(<span class="string">'touchstart'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="keyword">this</span>.className =<span class="string">'hover'</span>;&#125;, <span class="literal">false</span>);</span><br><span class="line">target.addEventListener(<span class="string">'touchend'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="keyword">this</span>.className = <span class="string">''</span>;&#125;, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="hover与click处理事件常常在一起使用，综合解决"><a href="#hover与click处理事件常常在一起使用，综合解决" class="headerlink" title="hover与click处理事件常常在一起使用，综合解决:"></a>hover与click处理事件常常在一起使用，综合解决:</h2><p>css代码:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.target</span><span class="selector-pseudo">:hover</span>,  <span class="selector-class">.target</span><span class="selector-class">.hover</span> &#123; <span class="comment">/* hover样式 */</span> &#125;</span><br></pre></td></tr></table></figure>
+<p>js代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> hoverClass = <span class="string">'hoverClass'</span>;  <span class="comment">// hover样式</span></span><br><span class="line"><span class="keyword">var</span> target = <span class="built_in">document</span>.getElementById(<span class="string">'target'</span>);</span><br><span class="line">target.addEventListener(<span class="string">'touchstart'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.className = hoverClass ;</span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br><span class="line">target.addEventListener(<span class="string">'touchend'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.className = <span class="string">""</span>;</span><br><span class="line">    <span class="comment">/* 点击事件回调函数 */</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="实际情况当然不会这么简单，扩展代码"><a href="#实际情况当然不会这么简单，扩展代码" class="headerlink" title="实际情况当然不会这么简单，扩展代码"></a>实际情况当然不会这么简单，扩展代码</h2><p>css代码:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.target</span><span class="selector-pseudo">:hover</span>,  <span class="selector-class">.target</span><span class="selector-class">.hover</span> &#123; <span class="comment">/* hover样式 */</span> &#125;</span><br></pre></td></tr></table></figure>
+<p>js代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">var</span> pFastTouch = <span class="function"><span class="keyword">function</span>(<span class="params">settings</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(!<span class="built_in">document</span>.querySelectorAll) <span class="keyword">return</span>;	<span class="comment">// 不支持html5元素查询</span></span><br><span class="line">		<span class="keyword">if</span>(!settings || !settings.selector) <span class="keyword">return</span>;	<span class="comment">// 未设置选择器</span></span><br><span class="line">		</span><br><span class="line">		settings.callbacks = settings.callbacks || &#123;&#125;;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">var</span> els = <span class="built_in">document</span>.querySelectorAll(settings.selector),</span><br><span class="line">			hoverClass = settings.hoverClass,</span><br><span class="line">			callbacks = settings.callbacks;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">var</span> startCb = <span class="literal">null</span>, moveCb = <span class="literal">null</span>, endCb = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * 触摸开始</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="keyword">if</span>(hoverClass || callbacks.start)&#123;</span><br><span class="line">			startCb = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">				<span class="keyword">var</span> el = event.target;</span><br><span class="line">				<span class="keyword">if</span>(hoverClass)&#123;</span><br><span class="line">					<span class="keyword">var</span>	className = el.className;</span><br><span class="line">					className = (className == (<span class="literal">undefined</span> || <span class="string">''</span>)) ? hoverClass : (className + <span class="string">' '</span>+hoverClass);</span><br><span class="line">					el.className = className;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">if</span>(callbacks.start) callbacks.start.call(<span class="literal">null</span>, el, event);</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;els.length; i++)&#123;</span><br><span class="line">				els[i].addEventListener(<span class="string">'touchstart'</span>, startCb, settings.bubble || <span class="literal">false</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * 触摸中</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="keyword">if</span>(callbacks.move)&#123;</span><br><span class="line">			moveCb = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">				callbacks.move.call(<span class="literal">null</span>, event.target, event);</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;els.length; i++)&#123;</span><br><span class="line">				els[i].addEventListener(<span class="string">'touchmove'</span>, moveCb, settings.bubble || <span class="literal">false</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * 触摸结束</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="keyword">if</span>(hoverClass || callbacks.end)&#123;</span><br><span class="line">			endCb = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">				el = event.target;</span><br><span class="line">				<span class="keyword">if</span>(hoverClass)&#123;</span><br><span class="line">					<span class="keyword">var</span> reg = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">'(\\s|^)'</span>+hoverClass+<span class="string">'(\\s|$)'</span>);</span><br><span class="line">					el.className = el.className.replace(reg, <span class="string">' '</span>);</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">if</span>(callbacks.end) callbacks.end.call(<span class="literal">null</span>, el, event);</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;els.length; i++)&#123;</span><br><span class="line">				els[i].addEventListener(<span class="string">'touchend'</span>, endCb, settings.bubble || <span class="literal">false</span>);</span><br><span class="line">				els[i].addEventListener(<span class="string">'touchcancel'</span>, endCb, settings.bubble || <span class="literal">false</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">var</span> setDestory = <span class="function"><span class="keyword">function</span>(<span class="params">el</span>)</span>&#123;</span><br><span class="line">			<span class="keyword">if</span>(startCb) el.removeEventListener(<span class="string">'touchstart'</span>, startCb, <span class="literal">false</span>);</span><br><span class="line">			<span class="keyword">if</span>(moveCb) el.removeEventListener(<span class="string">'touchmove'</span>, moveCb, <span class="literal">false</span>);</span><br><span class="line">			<span class="keyword">if</span>(endCb) el.removeEventListener(<span class="string">'touchend'</span>, endCb, <span class="literal">false</span>);</span><br><span class="line">			<span class="keyword">if</span>(endCb) el.removeEventListener(<span class="string">'touchcancel'</span>, endCb, <span class="literal">false</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * 销毁</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="keyword">var</span> destory = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;els.length; i++) setDestory(els[i]);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> &#123;</span><br><span class="line">			destory: destory</span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">window</span>.pFastCorres = <span class="function"><span class="keyword">function</span>(<span class="params">settings</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> pFastTouch(settings);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+<h3 id="调用示例"><a href="#调用示例" class="headerlink" title="调用示例**"></a>调用示例**</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> touch = pFastCorres(&#123;</span><br><span class="line">     selector: <span class="string">'元素选择器'</span>,    <span class="comment">// 与jQuery元素选择器使用方法一致</span></span><br><span class="line">     hoverClass: <span class="string">'hover样式'</span>,  <span class="comment">// 可不填  </span></span><br><span class="line">     bubble: <span class="literal">false</span>,  <span class="comment">// 是否吞噬触摸事件，默认为false</span></span><br><span class="line">    <span class="comment">// 回调， 如果没有可以不填写</span></span><br><span class="line">     callbacks:  &#123;</span><br><span class="line">           start: <span class="function"><span class="keyword">function</span>(<span class="params">el, event</span>)</span>&#123;&#125;,</span><br><span class="line">           move: <span class="function"><span class="keyword">function</span>(<span class="params">el, event</span>)</span>&#123;&#125;,</span><br><span class="line">           end: <span class="function"><span class="keyword">function</span>(<span class="params">el, event</span>)</span>&#123;&#125;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 若需要销毁,调用销毁方法</span></span><br><span class="line"><span class="comment">// touch.destory();</span></span><br></pre></td></tr></table></figure>
+<p>上述小段代码即可解决大部分的点击与hover需求，并且代码库很小<br>说白了原理就是使用touch代替进行处理，触摸开始的时候添加hover样式，触摸结束移除hover样式;</p>
+<p><a href="https://github.com/pyrinelaw/pFastCorres" target="_blank" rel="noopener">完整代码下载: https://github.com/pyrinelaw/pFastCorres</a><br><a href="http://pyrinelaw.github.io/pFastCorres/">demo:http://pyrinelaw.github.io/pFastCorres/</a></p>
+<p>当然，如果只是单纯的需要解决延迟点击问题，网上已有成型的插件供使用<br><a href="https://github.com/ftlabs/fastclick" target="_blank" rel="noopener">fastclick</a> 其原理是使用事件委托在document节点添加touch检测。不过代码库稍稍有点臃肿。</p>
+<p>如果使用了zepto.js，可以使用$.tap 方法进行click处理,缺点是存在点透问题，改写touch冒泡事件即可。</p>
+<p>感谢阅读此份文稿<br>如需引用，请注明出处<br>关于作者请访问： <a href="https://github.com/pyrinelaw" target="_blank" rel="noopener">https://github.com/pyrinelaw</a></p>
+<p>作者：Petrus.Law</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Html5/" rel="tag"># Html5</a>
+          
+            <a href="/tags/移动开发/" rel="tag"># 移动开发</a>
+          
+            <a href="/tags/控件/" rel="tag"># 控件</a>
+          
+            <a href="/tags/Css3/" rel="tag"># Css3</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/08/21/jekyll-win-install/" rel="next" title="Windows下Jekyll安装">
+                <i class="fa fa-chevron-left"></i> Windows下Jekyll安装
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/09/26/hexo-d/" rel="prev" title="hexo 部署至Git遇到的坑">
+                hexo 部署至Git遇到的坑 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2015/09/21/pFastCorres/"
+           data-title="WAP页面点击与hover延迟解决之道" data-url="http://pyrinelaw.github.io/2015/09/21/pFastCorres/">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Petrus.Law</p>
+              <p class="site-description motion-element" itemprop="description">Petrus.Law 's blog, 前端瞎扯淡</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#click的坑"><span class="nav-number">1.</span> <span class="nav-text">click的坑:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#存在延迟"><span class="nav-number">1.1.</span> <span class="nav-text">存在延迟</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IE也是有自己的解决方法的"><span class="nav-number">1.2.</span> <span class="nav-text">IE也是有自己的解决方法的:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他浏览器只能依靠js代码来解决"><span class="nav-number">1.3.</span> <span class="nav-text">其他浏览器只能依靠js代码来解决:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hover"><span class="nav-number">2.</span> <span class="nav-text">hover:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#hover样式不一定生效生效"><span class="nav-number">2.1.</span> <span class="nav-text">:hover样式不一定生效生效</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方法："><span class="nav-number">2.2.</span> <span class="nav-text">解决方法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#css增加hover样式"><span class="nav-number">2.3.</span> <span class="nav-text">css增加hover样式:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#js添加hover"><span class="nav-number">2.4.</span> <span class="nav-text">js添加hover</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hover与click处理事件常常在一起使用，综合解决"><span class="nav-number">3.</span> <span class="nav-text">hover与click处理事件常常在一起使用，综合解决:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实际情况当然不会这么简单，扩展代码"><span class="nav-number">4.</span> <span class="nav-text">实际情况当然不会这么简单，扩展代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#调用示例"><span class="nav-number">4.1.</span> <span class="nav-text">调用示例**</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Petrus.Law</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"petrus"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

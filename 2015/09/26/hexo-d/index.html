@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/favicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="hexo,Git," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="查找资料的时候发现了next这个博客主题，next！非常的漂亮，顺手查看了hexo的相关部署。 Hexo官方介绍Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。官网 https://hexo.io/zh-cn/docs/index.html">
+<meta name="keywords" content="hexo,Git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hexo 部署至Git遇到的坑">
+<meta property="og:url" content="http://pyrinelaw.github.io/2015/09/26/hexo-d/index.html">
+<meta property="og:site_name" content="Petrus.Law">
+<meta property="og:description" content="查找资料的时候发现了next这个博客主题，next！非常的漂亮，顺手查看了hexo的相关部署。 Hexo官方介绍Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。官网 https://hexo.io/zh-cn/docs/index.html">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://pyrinelaw.github.io/assset/images/hexo-g-1.png">
+<meta property="og:image" content="http://pyrinelaw.github.io/assset/images/nm/3.png">
+<meta property="og:image" content="http://pyrinelaw.github.io/assset/images/nm/4.png">
+<meta property="og:updated_time" content="2018-04-15T15:41:28.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hexo 部署至Git遇到的坑">
+<meta name="twitter:description" content="查找资料的时候发现了next这个博客主题，next！非常的漂亮，顺手查看了hexo的相关部署。 Hexo官方介绍Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。官网 https://hexo.io/zh-cn/docs/index.html">
+<meta name="twitter:image" content="http://pyrinelaw.github.io/assset/images/hexo-g-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://pyrinelaw.github.io/2015/09/26/hexo-d/"/>
+
+
+
+
+
+  <title>hexo 部署至Git遇到的坑 | Petrus.Law</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-68262129-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?3655bb5625587dd10b4da17ff63e097b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Petrus.Law</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">努力工作, 好好生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'c24_xtFoKsjzBXkTkY7Q','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://pyrinelaw.github.io/2015/09/26/hexo-d/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Petrus.Law">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Petrus.Law">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">hexo 部署至Git遇到的坑</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-09-26T00:00:00+08:00">
+                2015-09-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术随笔/" itemprop="url" rel="index">
+                    <span itemprop="name">技术随笔</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/09/26/hexo-d/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/26/hexo-d/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>查找资料的时候发现了next这个博客主题，<a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">next</a>！非常的漂亮，顺手查看了hexo的相关部署。</p>
+<h2 id="Hexo官方介绍"><a href="#Hexo官方介绍" class="headerlink" title="Hexo官方介绍"></a>Hexo官方介绍</h2><p>Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 <a href="http://daringfireball.net/projects/markdown/" target="_blank" rel="noopener">Markdown</a>（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。<br><a href="https://hexo.io/zh-cn/docs/index.html" target="_blank" rel="noopener">官网 https://hexo.io/zh-cn/docs/index.html</a></p>
+<a id="more"></a>
+<h2 id="Hexo博客建立"><a href="#Hexo博客建立" class="headerlink" title="Hexo博客建立"></a>Hexo博客建立</h2><p>简洁高效，如同官网的介绍。安装过程非常简单，官网有非常详细的文档，<a href="https://hexo.io/zh-cn/docs" target="_blank" rel="noopener">安装文档</a>；并且还是中文的哦！</p>
+<h2 id="部署至github"><a href="#部署至github" class="headerlink" title="部署至github"></a>部署至github</h2><p>安装完成后需要部署至github，根据官网的介绍，首先进行配置</p>
+<p><img src="/assset/images/hexo-g-1.png" alt="hexo-git配置"></p>
+<h3 id="安装hexo-delopyer-git"><a href="#安装hexo-delopyer-git" class="headerlink" title="安装hexo-delopyer-git"></a>安装hexo-delopyer-git</h3><p>安装hexo关于git管理组件：hexo-delopyer-git，照着做即可</p>
+<h3 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h3><p>找到根目录下的_config.yml，修改配置<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">    <span class="built_in">type</span>: git</span><br><span class="line">    repo: https://github.com/pyrinelaw/pyrinelaw.github.io.git</span><br><span class="line">    branch: master</span><br></pre></td></tr></table></figure></p>
+<h3 id="上传操作"><a href="#上传操作" class="headerlink" title="上传操作"></a>上传操作</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+<h3 id="报错spawn-git-ENOENT"><a href="#报错spawn-git-ENOENT" class="headerlink" title="报错spawn git ENOENT"></a>报错spawn git ENOENT</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Error: spawn git ENOENT</span><br><span class="line">    at exports._errnoException (util.js:746:11)</span><br><span class="line">    at Process.ChildProcess._handle.onexit (child_process.js:1053:32)</span><br><span class="line">    at child_process.js:1144:20)</span><br><span class="line">    at process._tickCallback (node.js:355:11)</span><br></pre></td></tr></table></figure>
+<p>未添加Git环境变量引起，添加Git与git管理库的环境变量即可；<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">D:\Git\bin;D:\Git\libexec\git-core</span><br></pre></td></tr></table></figure></p>
+<p>设置完毕后强制更新环境变量，或者重启电脑~</p>
+<h3 id="读取不到Git分支"><a href="#读取不到Git分支" class="headerlink" title="读取不到Git分支"></a>读取不到Git分支</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Please make sure you have the correct access rights</span><br><span class="line">and the repository exists.</span><br><span class="line">FATAL Something<span class="string">'s wrong. Maybe you can find the solution here: http://hexo.io</span></span><br><span class="line"><span class="string">cs/troubleshooting.html</span></span><br><span class="line"><span class="string">Error: fatal: '</span>github.com/pyrinelaw/pyrinelaw.github.io.git<span class="string">' does not appear</span></span><br><span class="line"><span class="string">be a git repository</span></span><br><span class="line"><span class="string">fatal: Could not read from remote repository.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Please make sure you have the correct access rights</span></span><br><span class="line"><span class="string">and the repository exists.</span></span><br></pre></td></tr></table></figure>
+<p>读取不到github上的分支，使用Hexo之前是有使用Git操作过Github的，所以不大可能是Git安装的问题。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -v git@github.com</span><br></pre></td></tr></table></figure></p>
+<p>显示ssh连接github成功，说明Git安装正确。<br>卸载Git重新安装，错误继续出现。搁置了一天，中午午休的时候网上逛论坛，发现了此问题。原来是我的Git版本太新的缘故。。。<br>卸载Git 2.5版本，安装1.9版本，问题解决－_－</p>
+<p><img src="/assset/images/nm/3.png" alt="Paste_Image.png"></p>
+<h3 id="Git提交错误"><a href="#Git提交错误" class="headerlink" title="Git提交错误"></a>Git提交错误</h3><p>再次部署<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure></p>
+<p>提示success ~<br>但是尼玛，居然把整个hexo根目录给提交了上去，这不是我要的结果啊，说好的只提交public文件夹的呢！＠Д＠<br>查看hexo根目录，存在“.git”这个目录，原来是在hexo根目录下，我进行过git init的操作，删除“.git”文件夹即可。</p>
+<p><img src="/assset/images/nm/4.png" alt="Paste_Image.png"><br>至此博客已部署至Github完毕<br>贴上地址: <a href="http://pyrinelaw.github.io">pyrinelaw.github.io</a></p>
+<h3 id="附：相关查找资料"><a href="#附：相关查找资料" class="headerlink" title="附：相关查找资料"></a>附：相关查找资料</h3><p><a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">https://hexo.io/zh-cn/docs/</a><br><a href="http://artori.us/git-github-usage/" target="_blank" rel="noopener">http://artori.us/git-github-usage/</a><br><a href="http://www.jianshu.com/p/858ecf233db9" target="_blank" rel="noopener">http://www.jianshu.com/p/858ecf233db9</a><br><a href="http://www.cognize.me/2015/08/22/msysgiterror/" target="_blank" rel="noopener">http://www.cognize.me/2015/08/22/msysgiterror/</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/hexo/" rel="tag"># hexo</a>
+          
+            <a href="/tags/Git/" rel="tag"># Git</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/09/21/pFastCorres/" rel="next" title="WAP页面点击与hover延迟解决之道">
+                <i class="fa fa-chevron-left"></i> WAP页面点击与hover延迟解决之道
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/09/29/Facebook-APP/" rel="prev" title="Facebook 网页应用图文设置教程">
+                Facebook 网页应用图文设置教程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2015/09/26/hexo-d/"
+           data-title="hexo 部署至Git遇到的坑" data-url="http://pyrinelaw.github.io/2015/09/26/hexo-d/">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Petrus.Law</p>
+              <p class="site-description motion-element" itemprop="description">Petrus.Law 's blog, 前端瞎扯淡</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo官方介绍"><span class="nav-number">1.</span> <span class="nav-text">Hexo官方介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo博客建立"><span class="nav-number">2.</span> <span class="nav-text">Hexo博客建立</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署至github"><span class="nav-number">3.</span> <span class="nav-text">部署至github</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装hexo-delopyer-git"><span class="nav-number">3.1.</span> <span class="nav-text">安装hexo-delopyer-git</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改配置文件"><span class="nav-number">3.2.</span> <span class="nav-text">修改配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上传操作"><span class="nav-number">3.3.</span> <span class="nav-text">上传操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#报错spawn-git-ENOENT"><span class="nav-number">3.4.</span> <span class="nav-text">报错spawn git ENOENT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读取不到Git分支"><span class="nav-number">3.5.</span> <span class="nav-text">读取不到Git分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Git提交错误"><span class="nav-number">3.6.</span> <span class="nav-text">Git提交错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#附：相关查找资料"><span class="nav-number">3.7.</span> <span class="nav-text">附：相关查找资料</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Petrus.Law</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"petrus"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

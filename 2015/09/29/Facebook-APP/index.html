@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/favicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Facebook,应用," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="最近在弄一个项目，需要使用Facebook进行登陆并且获取用户Facebook相关的数据。网上查找有关Facebook应用设置教程，中文资料中，要么介绍的是N版之前的API，要么是App端的教程。Facebook文档很多介绍的也不是很齐全，自己仔细摸索一番，踩坑经验~ 废话不多说，要使用Facebook必须先翻墙，对于一个学渣来说，翻墙什么的最喜欢了~  创建facebook账号要上faceboo">
+<meta name="keywords" content="Facebook,应用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Facebook 网页应用图文设置教程">
+<meta property="og:url" content="http://pyrinelaw.github.io/2015/09/29/Facebook-APP/index.html">
+<meta property="og:site_name" content="Petrus.Law">
+<meta property="og:description" content="最近在弄一个项目，需要使用Facebook进行登陆并且获取用户Facebook相关的数据。网上查找有关Facebook应用设置教程，中文资料中，要么介绍的是N版之前的API，要么是App端的教程。Facebook文档很多介绍的也不是很齐全，自己仔细摸索一番，踩坑经验~ 废话不多说，要使用Facebook必须先翻墙，对于一个学渣来说，翻墙什么的最喜欢了~  创建facebook账号要上faceboo">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://pyrinelaw.github.io/assset/images/422235-f0cb4836e6b79cb9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://pyrinelaw.github.io/assset/images/422235-2e708003ea7ad6b4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://pyrinelaw.github.io/assset/images/422235-783312ddefd29bd1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://pyrinelaw.github.io/assset/images/422235-b83e501afe9c5909.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://pyrinelaw.github.io/assset/images/422235-b055cdb2efbede78.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://pyrinelaw.github.io/assset/images/422235-70c694d4886a2251.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://pyrinelaw.github.io/assset/images/422235-4cf25ecdd37deb84.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://pyrinelaw.github.io/assset/images/422235-21791ed8b68212f8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://pyrinelaw.github.io/assset/images/422235-5e299c0abeb399fe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://pyrinelaw.github.io/assset/images/422235-5f52c3d2e4a2a2d9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://pyrinelaw.github.io/assset/images/422235-f13b69a46787e243.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://pyrinelaw.github.io/assset/images/422235-b979f5a5acd43ddd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://pyrinelaw.github.io/assset/images/422235-b0d36ebd180d057f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://pyrinelaw.github.io/assset/images/422235-5a380a684c171d95.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://pyrinelaw.github.io/assset/images/422235-294e155368e89a2d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://pyrinelaw.github.io/assset/images/422235-31d84ac64863f68e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://pyrinelaw.github.io/assset/images/422235-cedac581d5c434d5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://pyrinelaw.github.io/assset/images/422235-0e48d41882cf2e50.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://pyrinelaw.github.io/assset/images/422235-bdc07ced73d89104.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://pyrinelaw.github.io/assset/images/422235-4a0b0f981c02d55d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://pyrinelaw.github.io/assset/images/422235-92008f3ee4c3b7ec.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://pyrinelaw.github.io/assset/images/422235-45e82933ae2fede7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-04-15T15:19:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Facebook 网页应用图文设置教程">
+<meta name="twitter:description" content="最近在弄一个项目，需要使用Facebook进行登陆并且获取用户Facebook相关的数据。网上查找有关Facebook应用设置教程，中文资料中，要么介绍的是N版之前的API，要么是App端的教程。Facebook文档很多介绍的也不是很齐全，自己仔细摸索一番，踩坑经验~ 废话不多说，要使用Facebook必须先翻墙，对于一个学渣来说，翻墙什么的最喜欢了~  创建facebook账号要上faceboo">
+<meta name="twitter:image" content="http://pyrinelaw.github.io/assset/images/422235-f0cb4836e6b79cb9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://pyrinelaw.github.io/2015/09/29/Facebook-APP/"/>
+
+
+
+
+
+  <title>Facebook 网页应用图文设置教程 | Petrus.Law</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-68262129-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?3655bb5625587dd10b4da17ff63e097b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Petrus.Law</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">努力工作, 好好生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'c24_xtFoKsjzBXkTkY7Q','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://pyrinelaw.github.io/2015/09/29/Facebook-APP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Petrus.Law">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Petrus.Law">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Facebook 网页应用图文设置教程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-09-29T00:00:00+08:00">
+                2015-09-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术随笔/" itemprop="url" rel="index">
+                    <span itemprop="name">技术随笔</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/09/29/Facebook-APP/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/29/Facebook-APP/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近在弄一个项目，需要使用Facebook进行登陆并且获取用户Facebook相关的数据。网上查找有关Facebook应用设置教程，中文资料中，要么介绍的是N版之前的API，要么是App端的教程。Facebook文档很多介绍的也不是很齐全，自己仔细摸索一番，踩坑经验~</p>
+<p>废话不多说，要使用Facebook必须先翻墙，对于一个学渣来说，翻墙什么的最喜欢了~ </p>
+<h2 id="创建facebook账号"><a href="#创建facebook账号" class="headerlink" title="创建facebook账号"></a>创建facebook账号</h2><p>要上facebook申请应用，首先要创建facebook账号；<br>上Facebook创建账号没什么好说的，唯一需要注意一点的是，最好填写真实的信息，不然Facebook账号丢失的话，找起来很麻烦~<br><a id="more"></a></p>
+<h2 id="申请Facebook应用"><a href="#申请Facebook应用" class="headerlink" title="申请Facebook应用"></a>申请Facebook应用</h2><p>进入Facebook应用申请入口: <a href="https://developers.facebook.com/" target="_blank" rel="noopener">Facebook应用申请</a></p>
+<h2 id="创建应用入口"><a href="#创建应用入口" class="headerlink" title="创建应用入口"></a>创建应用入口</h2><p>点击创建新应用即可~</p>
+<p><img src="/assset/images/422235-f0cb4836e6b79cb9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="应用创建入口"></p>
+<h3 id="填写应用名"><a href="#填写应用名" class="headerlink" title="填写应用名"></a>填写应用名</h3><p>就是Facebook应用的名称，当然，你可以随便取，who case !</p>
+<p><img src="/assset/images/422235-2e708003ea7ad6b4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="填写应用名"></p>
+<h3 id="选择应用类别"><a href="#选择应用类别" class="headerlink" title="选择应用类别"></a>选择应用类别</h3><p>按照你的实际需求进行选择，选择完毕后点击创建。</p>
+<p><img src="/assset/images/422235-783312ddefd29bd1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="选择应用类别"></p>
+<h3 id="填写应用地址"><a href="#填写应用地址" class="headerlink" title="填写应用地址"></a>填写应用地址</h3><p>这一步需要注意的是，请加上http://  或者https:// 协议前缀~<br>如果你的应用是https的，请不要使用http  否则Facebook定位不到你的应用网址</p>
+<p><img src="/assset/images/422235-b83e501afe9c5909.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="填写应用地址"></p>
+<h3 id="创建应用完成"><a href="#创建应用完成" class="headerlink" title="创建应用完成"></a>创建应用完成</h3><p>应用创建完成后，会有一些基础的文档提供给你使用~ 不过建议进行进一步设置后再进行开发。</p>
+<p><img src="/assset/images/422235-b055cdb2efbede78.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="创建应用完成"></p>
+<h2 id="Facebook应用设置"><a href="#Facebook应用设置" class="headerlink" title="Facebook应用设置"></a>Facebook应用设置</h2><h3 id="进入app"><a href="#进入app" class="headerlink" title="进入app"></a>进入app</h3><p>点击 My apps &gt; app 进入你的app界面</p>
+<p><img src="/assset/images/422235-70c694d4886a2251.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Dashboard"></p>
+<p>上图所示的是你的应用的基本一些基本信息</p>
+<h3 id="基本设置"><a href="#基本设置" class="headerlink" title="基本设置"></a>基本设置</h3><p>点击左侧settings按钮进入设置界面~<br>设置你的联系邮箱，如果不设置联系邮箱，你的应用只可以供你自己的Facebook账号使用!</p>
+<p><img src="/assset/images/422235-4cf25ecdd37deb84.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="settings-base"></p>
+<h3 id="让你的Facebook应用成为公共应用"><a href="#让你的Facebook应用成为公共应用" class="headerlink" title="让你的Facebook应用成为公共应用"></a>让你的Facebook应用成为公共应用</h3><p>上图设置的邮箱这里就派上了用场了</p>
+<p><img src="/assset/images/422235-21791ed8b68212f8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Status &amp; Review"></p>
+<p>点击Yes，让你的应用成为公共应用</p>
+<p><img src="/assset/images/422235-5e299c0abeb399fe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Public"></p>
+<p>别紧张，点击确认就OK了~</p>
+<h3 id="高级设置"><a href="#高级设置" class="headerlink" title="高级设置"></a>高级设置</h3><p>settings &gt; advanced</p>
+<p>Client OAuth login is enabled but you haven’t listed any valid OAuth redirect URIs. Click here for more information.</p>
+<p><img src="/assset/images/422235-5f52c3d2e4a2a2d9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="settings-advanced"></p>
+<p>一进来就会发现这个警告，意思是说，客户端OAuth登陆未添加监听跳转地址。<br>也就是说，必须要监听授权监听，比如说，用户一开始登陆了你的应用，然后在facebook中取消了你的应用授权，这个时候这个地址就派上用场了。</p>
+<p><img src="/assset/images/422235-f13b69a46787e243.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Callback-url"></p>
+<p>设置这个地址，必须要注意两点:</p>
+<blockquote>
+<ul>
+<li>这个地址必须在你的应用网址域名下</li>
+<li>这个地址必须是真实存在的，是可以访问的</li>
+</ul>
+</blockquote>
+<p>比如说你的应用地址是 <a href="http://www.a.com" target="_blank" rel="noopener">http://www.a.com</a><br>你这里就可以填写<a href="http://www.a.com/cb.html" target="_blank" rel="noopener">http://www.a.com/cb.html</a></p>
+<p>还需要定义跳转地址</p>
+<p><img src="/assset/images/422235-b979f5a5acd43ddd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="redirect uris"></p>
+<p>这里填写的也是 <a href="http://www.a.com/cb.html" target="_blank" rel="noopener">http://www.a.com/cb.html</a></p>
+<h2 id="检测应用是否设置成功"><a href="#检测应用是否设置成功" class="headerlink" title="检测应用是否设置成功"></a>检测应用是否设置成功</h2><p>这里不讲怎么进行授权、登陆之类的API，因为这些API，Facebook官网API还算是比较清晰的~<br>当我们写好程序后，需要把程序代码提交到服务器上，就是我们在基本设置中填写的 <strong>Wetsite-URl</strong></p>
+<p><img src="/assset/images/422235-b0d36ebd180d057f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="logo"></p>
+<p>调用登陆API出现这个登陆界面就表示设置成功了<br>如果是首次登陆的话还会弹出授权界面，用户同意授权后，可以获取用户的相关信息</p>
+<p><img src="/assset/images/422235-5a380a684c171d95.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Authorize"></p>
+<p>至此基本的设置已经都完成了，使用Facebook应用攻击美帝吧！</p>
+<h2 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h2><h3 id="手机端不能登陆"><a href="#手机端不能登陆" class="headerlink" title="手机端不能登陆"></a>手机端不能登陆</h3><p>当我在PC端测试通过后，同样的代码在手机网页中却会提示错误。</p>
+<p><img src="/assset/images/422235-294e155368e89a2d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="error"></p>
+<p>网上找到的资料说是要设置mobile-site-url。</p>
+<p>settings &gt; base<br>2.4版本的Facebook改成了App Domains，之前的版本叫mobile-site-url，并且进行设置也不在同一处。</p>
+<p><img src="/assset/images/422235-31d84ac64863f68e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="settings-base"></p>
+<p>App Domains设置需要注意两点</p>
+<blockquote>
+<ul>
+<li>必须是website url 下的一个子域名</li>
+<li>这个域名是真实存在的</li>
+<li>http 或者 https协议前缀必须加上</li>
+</ul>
+</blockquote>
+<p>比如说website url 是<a href="http://www.a.com，" target="_blank" rel="noopener">www.a.com，</a> App.Domains 可设置为 sub.a.com<br>比如说website url 是sub.a.com， App.Domains 可设置为 son.sub.a.com</p>
+<p>前面的设置都很简单，基本上都是一次过，唯独手机端登陆，Facebook居然没有写明，坑死我了~</p>
+<h3 id="设置应用图片"><a href="#设置应用图片" class="headerlink" title="设置应用图片"></a>设置应用图片</h3><p>Facebook应用的默认图片</p>
+<p><img src="/assset/images/422235-cedac581d5c434d5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="default icon"></p>
+<p>进入 App Details 进行设置</p>
+<p><img src="/assset/images/422235-0e48d41882cf2e50.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="App Details"></p>
+<p>修改图片即可</p>
+<p><img src="/assset/images/422235-bdc07ced73d89104.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="change icon"></p>
+<h3 id="本地调试"><a href="#本地调试" class="headerlink" title="本地调试"></a>本地调试</h3><p>每次都将应用程序上传至服务器调试比较麻烦，如果想在进行本地调试，进入Test Apps进行设置。</p>
+<p><img src="/assset/images/422235-4a0b0f981c02d55d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Test apps"></p>
+<h3 id="获取其他权限"><a href="#获取其他权限" class="headerlink" title="获取其他权限"></a>获取其他权限</h3><p>Facebook默认设置了3种权限，最高权限为email，就是除了获取用户名与用户头像外，还可以获取用户的Email。<br>如果还需要获取其他权限，比如说好友列表权限！<br>添加完成后需要按照Facebook要求的格式提交申请~</p>
+<p><img src="/assset/images/422235-92008f3ee4c3b7ec.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Add items"></p>
+<h3 id="创建其他类型应用"><a href="#创建其他类型应用" class="headerlink" title="创建其他类型应用"></a>创建其他类型应用</h3><p>如果我们的Facebook 关联了Android或者IOS应用，在Settings &gt; base 中添加设置即可</p>
+<p><img src="/assset/images/422235-45e82933ae2fede7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Add Platform"></p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>此教程适用于Facebook2.4应用版本~<br>这篇文章是我在进行设置的时候所写，部分地方理解不是很全面~<br>Facebook应用还有很多的功能，比如说数据分析，如果需要，细细摸索吧~</p>
+<h2 id="相关资料"><a href="#相关资料" class="headerlink" title="相关资料"></a>相关资料</h2><p><a href="https://developers.facebook.com/" target="_blank" rel="noopener">https://developers.facebook.com/</a><br><a href="https://developers.facebook.com/docs/javascript" target="_blank" rel="noopener">https://developers.facebook.com/docs/javascript</a><br><a href="http://fbdevwiki.com/wiki/FB.ui" target="_blank" rel="noopener">http://fbdevwiki.com/wiki/FB.ui</a><br><a href="http://stackoverflow.com/questions/12547088/how-do-i-customize-facebooks-sharer-php" target="_blank" rel="noopener">http://stackoverflow.com/questions/12547088/how-do-i-customize-facebooks-sharer-php</a><br><a href="http://stackoverflow.com/questions/16463030/how-to-add-facebook-share-button-on-my-website" target="_blank" rel="noopener">http://stackoverflow.com/questions/16463030/how-to-add-facebook-share-button-on-my-website</a></p>
+<hr>
+<p>文章来自 <a href="https://pyrinelaw.github.io/">Petrus.Law</a>，转载请注明出处</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Facebook/" rel="tag"># Facebook</a>
+          
+            <a href="/tags/应用/" rel="tag"># 应用</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/09/26/hexo-d/" rel="next" title="hexo 部署至Git遇到的坑">
+                <i class="fa fa-chevron-left"></i> hexo 部署至Git遇到的坑
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/11/12/pull-refresh/" rel="prev" title="来一发，网页下拉刷新">
+                来一发，网页下拉刷新 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2015/09/29/Facebook-APP/"
+           data-title="Facebook 网页应用图文设置教程" data-url="http://pyrinelaw.github.io/2015/09/29/Facebook-APP/">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Petrus.Law</p>
+              <p class="site-description motion-element" itemprop="description">Petrus.Law 's blog, 前端瞎扯淡</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建facebook账号"><span class="nav-number">1.</span> <span class="nav-text">创建facebook账号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#申请Facebook应用"><span class="nav-number">2.</span> <span class="nav-text">申请Facebook应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建应用入口"><span class="nav-number">3.</span> <span class="nav-text">创建应用入口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#填写应用名"><span class="nav-number">3.1.</span> <span class="nav-text">填写应用名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择应用类别"><span class="nav-number">3.2.</span> <span class="nav-text">选择应用类别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#填写应用地址"><span class="nav-number">3.3.</span> <span class="nav-text">填写应用地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建应用完成"><span class="nav-number">3.4.</span> <span class="nav-text">创建应用完成</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Facebook应用设置"><span class="nav-number">4.</span> <span class="nav-text">Facebook应用设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#进入app"><span class="nav-number">4.1.</span> <span class="nav-text">进入app</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本设置"><span class="nav-number">4.2.</span> <span class="nav-text">基本设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#让你的Facebook应用成为公共应用"><span class="nav-number">4.3.</span> <span class="nav-text">让你的Facebook应用成为公共应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高级设置"><span class="nav-number">4.4.</span> <span class="nav-text">高级设置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检测应用是否设置成功"><span class="nav-number">5.</span> <span class="nav-text">检测应用是否设置成功</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他问题"><span class="nav-number">6.</span> <span class="nav-text">其他问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#手机端不能登陆"><span class="nav-number">6.1.</span> <span class="nav-text">手机端不能登陆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置应用图片"><span class="nav-number">6.2.</span> <span class="nav-text">设置应用图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本地调试"><span class="nav-number">6.3.</span> <span class="nav-text">本地调试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取其他权限"><span class="nav-number">6.4.</span> <span class="nav-text">获取其他权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建其他类型应用"><span class="nav-number">6.5.</span> <span class="nav-text">创建其他类型应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他"><span class="nav-number">6.6.</span> <span class="nav-text">其他</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关资料"><span class="nav-number">7.</span> <span class="nav-text">相关资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Petrus.Law</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"petrus"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/favicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Html5,移动开发,控件," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="手机APP开发中，下拉刷新是一个很常见的功能，但是在网页中，这种模式用的很少。网页下拉刷新，看似简单的功能，但我在网上并没有找到比较好的解决方法，遂自己开发了一个。期间遇到了各种小坑，浏览器兼容，各种浏览器下拉默认事件，PC端无触摸事件~。 简单的效果图">
+<meta name="keywords" content="Html5,移动开发,控件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="来一发，网页下拉刷新">
+<meta property="og:url" content="http://pyrinelaw.github.io/2015/11/12/pull-refresh/index.html">
+<meta property="og:site_name" content="Petrus.Law">
+<meta property="og:description" content="手机APP开发中，下拉刷新是一个很常见的功能，但是在网页中，这种模式用的很少。网页下拉刷新，看似简单的功能，但我在网上并没有找到比较好的解决方法，遂自己开发了一个。期间遇到了各种小坑，浏览器兼容，各种浏览器下拉默认事件，PC端无触摸事件~。 简单的效果图">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://pyrinelaw.github.io/assset/images/422235-4da3ee22263afa19.gif">
+<meta property="og:image" content="http://pyrinelaw.github.io/assset/images/422235-cdb8a921bd362b6c.png">
+<meta property="og:image" content="http://pyrinelaw.github.io/assset/images/422235-b1f401690d914d79.png">
+<meta property="og:updated_time" content="2018-04-10T14:35:42.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="来一发，网页下拉刷新">
+<meta name="twitter:description" content="手机APP开发中，下拉刷新是一个很常见的功能，但是在网页中，这种模式用的很少。网页下拉刷新，看似简单的功能，但我在网上并没有找到比较好的解决方法，遂自己开发了一个。期间遇到了各种小坑，浏览器兼容，各种浏览器下拉默认事件，PC端无触摸事件~。 简单的效果图">
+<meta name="twitter:image" content="http://pyrinelaw.github.io/assset/images/422235-4da3ee22263afa19.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://pyrinelaw.github.io/2015/11/12/pull-refresh/"/>
+
+
+
+
+
+  <title>来一发，网页下拉刷新 | Petrus.Law</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-68262129-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?3655bb5625587dd10b4da17ff63e097b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Petrus.Law</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">努力工作, 好好生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'c24_xtFoKsjzBXkTkY7Q','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://pyrinelaw.github.io/2015/11/12/pull-refresh/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Petrus.Law">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Petrus.Law">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">来一发，网页下拉刷新</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-11-12T00:00:00+08:00">
+                2015-11-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/开发随笔/" itemprop="url" rel="index">
+                    <span itemprop="name">开发随笔</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/11/12/pull-refresh/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/12/pull-refresh/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>手机APP开发中，下拉刷新是一个很常见的功能，但是在网页中，这种模式用的很少。网页下拉刷新，看似简单的功能，但我在网上并没有找到比较好的解决方法，遂自己开发了一个。期间遇到了各种小坑，浏览器兼容，各种浏览器下拉默认事件，PC端无触摸事件~。</p>
+<h2 id="简单的效果图"><a href="#简单的效果图" class="headerlink" title="简单的效果图"></a>简单的效果图</h2><hr>
+<p><img src="/assset/images/422235-4da3ee22263afa19.gif" alt="下拉刷新效果图"></p>
+<a id="more"></a>
+<h2 id="下拉刷新实现流程"><a href="#下拉刷新实现流程" class="headerlink" title="下拉刷新实现流程"></a>下拉刷新实现流程</h2><hr>
+<ul>
+<li>定义初始数据</li>
+<li>触摸开始</li>
+<li>触摸移动过程中判断是否处于下拉状态，标记开始状态</li>
+<li>触摸过程中控制提示内容 margin-top与 height 属性予以呈现</li>
+<li>触摸结束，请求数据</li>
+<li>请求数据成功/失败处理</li>
+<li>处理数据，下拉刷新完成</li>
+</ul>
+<p>清晰的流程认知很重要，接下来简单的说明流程</p>
+<h2 id="静态样式"><a href="#静态样式" class="headerlink" title="静态样式"></a>静态样式</h2><hr>
+<p>下拉刷新需要下拉元素与下拉提示元素<br>这里我们选择的容器是body,下拉提示元素自定义~<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"refreshing"</span>&gt;</span></span><br><span class="line">             <span class="comment">&lt;!-- 刷新提示元素 --&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>需要注意的是，下拉容器高度不能设置为0，否则不能为容器添加触摸事件</p>
+<h2 id="定义初始数据"><a href="#定义初始数据" class="headerlink" title="定义初始数据"></a>定义初始数据</h2><hr>
+<p>开始之前定义一系列初始数据,<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> isValid = <span class="literal">false</span>,	<span class="comment">// 是否生效</span></span><br><span class="line">    isTouching = <span class="literal">false</span>,	<span class="comment">// 触摸中标识</span></span><br><span class="line">    isEfec = <span class="literal">false</span>,	<span class="comment">// 触摸是否生效</span></span><br><span class="line">    isDestory = <span class="literal">false</span>, 	<span class="comment">// 是否销毁 </span></span><br><span class="line">    startX, startY, disY = <span class="number">0</span>,	<span class="comment">// 起始触摸X、y坐标， 移动Y坐标</span></span><br><span class="line">    ...</span><br></pre></td></tr></table></figure></p>
+<p>添加触摸事件<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.body.addEventListener(<span class="string">'touchstart'</span>, touchStart, <span class="literal">false</span>);</span><br><span class="line"><span class="built_in">document</span>.body.addEventListener(<span class="string">'touchmove'</span>, touchMove, <span class="literal">false</span>);</span><br><span class="line"><span class="built_in">document</span>.body.addEventListener(<span class="string">'touchend'</span>, touchEnd, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure></p>
+<h2 id="开始触摸"><a href="#开始触摸" class="headerlink" title="开始触摸"></a>开始触摸</h2><hr>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> touchStart = <span class="function"><span class="keyword">function</span>(<span class="params">evt</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> scrollTop = <span class="built_in">parseInt</span>($el.scrollTop());</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span>(scrollTop &gt; <span class="number">0</span>) <span class="keyword">return</span>;  <span class="comment">// 滚动条高度大于0</span></span><br><span class="line">	<span class="keyword">if</span>(isDestory) <span class="keyword">return</span>;        <span class="comment">// 销毁状态</span></span><br><span class="line">	<span class="keyword">if</span>(isTouching) <span class="keyword">return</span>;     <span class="comment">// 当前处于触摸状态</span></span><br><span class="line"></span><br><span class="line">	isTouching = <span class="literal">true</span>;          <span class="comment">// 触摸状态标标识</span></span><br><span class="line">	isEfec = <span class="literal">true</span>;                  <span class="comment">// 触摸开始生效</span></span><br><span class="line">	</span><br><span class="line">    <span class="keyword">var</span> touch = evt.touches[<span class="number">0</span>], <span class="comment">//获取第一个触点</span></span><br><span class="line">		x = <span class="built_in">parseInt</span>(touch.pageX), <span class="comment">//页面触点X坐标</span></span><br><span class="line">    	y = <span class="built_in">parseInt</span>(touch.pageY); <span class="comment">//页面触点Y坐标</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//记录触点初始位置</span></span><br><span class="line">    startX = x;</span><br><span class="line">    startY = y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这一步唯一需要做的就是记录开始触摸点；</p>
+<h2 id="触摸移动过程"><a href="#触摸移动过程" class="headerlink" title="触摸移动过程"></a>触摸移动过程</h2><hr>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> touchMove = <span class="function"><span class="keyword">function</span>(<span class="params">evt</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> $loadingEl = $loadingEl,</span><br><span class="line">    	touch = evt.touches[<span class="number">0</span>], <span class="comment">//获取第一个触点</span></span><br><span class="line">    	x = <span class="built_in">parseInt</span>(touch.pageX), <span class="comment">//页面触点X坐标</span></span><br><span class="line">    	y = <span class="built_in">parseInt</span>(touch.pageY), <span class="comment">//页面触点Y坐标</span></span><br><span class="line">    	t = y - startY;			<span class="comment">// 触摸距离</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 距离必须大于灵敏距离触摸才生效</span></span><br><span class="line">    <span class="keyword">if</span>(!isValid &amp;&amp; t &gt; options.startPX) &#123;</span><br><span class="line">    	isValid = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 阻止事件冒泡</span></span><br><span class="line">    evt.preventDefault();	</span><br><span class="line">   </span><br><span class="line">   <span class="comment">// 省略几行代码</span></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    disY = t;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 在这一步中需要阻止事件冒泡事件，WAP端的部分浏览器会重写下拉事件，比如chrome与微信中（见下图）。</p>
+<p><img src="/assset/images/422235-cdb8a921bd362b6c.png" alt="chrome浏览器默认下拉刷新"><br><img src="/assset/images/422235-b1f401690d914d79.png" alt="微信中默认下拉显示网页信息"><br>这里一大坑是：浏览器中下拉默认事件一旦触发后，就不能再通过冒泡阻止此事件。<br>chrome浏览器中大概是15PX左右的下拉后触发默认刷新，微信中大概是6像素左右。</p>
+<h2 id="触摸结束，请求数据"><a href="#触摸结束，请求数据" class="headerlink" title="触摸结束，请求数据"></a>触摸结束，请求数据</h2><hr>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// touchend事件</span></span><br><span class="line"><span class="keyword">var</span> touchEnd = <span class="function"><span class="keyword">function</span>(<span class="params">evt</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">	isValid = <span class="literal">false</span>;</span><br><span class="line">	isEfec = <span class="literal">false</span>;</span><br><span class="line">	disY = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> $loadingEl = options.$loadingEl,</span><br><span class="line">    	touch = evt.touches[<span class="number">0</span>] || evt.changedTouches[<span class="number">0</span>], 	<span class="comment">//获取第一个触点</span></span><br><span class="line">    	y = <span class="built_in">parseInt</span>(touch.pageY), 	<span class="comment">//页面触点Y坐标</span></span><br><span class="line">    	t = y - startY;</span><br><span class="line">       </span><br><span class="line">   <span class="comment">// Do some thing ...</span></span><br><span class="line">  </span><br><span class="line">   $.post(options.url, sendData, <span class="function"><span class="keyword">function</span>(<span class="params">response, textStatus, xhr</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// Do something </span></span><br><span class="line">    &#125;).error(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="comment">// Do something</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>触摸结束后需要做的是判断是否进行请求数据，<br>请求数据成功后，处理数据，重置有关刷新的代码</p>
+<hr>
+<p>简单的说明就到此为止，如果有兴趣，可以从github中下载~</p>
+<h2 id="相关"><a href="#相关" class="headerlink" title="相关"></a>相关</h2><hr>
+<p><strong>下载地址:</strong>  <a href="https://github.com/pyrinelaw/p-pull-refresh" target="_blank" rel="noopener">https://github.com/pyrinelaw/p-pull-refresh</a><br><strong>演示地址:</strong> <a href="http://pyrinelaw.github.io/p-pull-refresh">http://pyrinelaw.github.io/p-pull-refresh</a><br><strong>Drag介绍文档:</strong> <a href="http://www.w3schools.com/tags/ev_ondrag.asp" target="_blank" rel="noopener">http://www.w3schools.com/tags/ev_ondrag.asp</a><br><strong>作者</strong><a href="http://pyrinelaw.github.io">Petrus.Law</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Html5/" rel="tag"># Html5</a>
+          
+            <a href="/tags/移动开发/" rel="tag"># 移动开发</a>
+          
+            <a href="/tags/控件/" rel="tag"># 控件</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/09/29/Facebook-APP/" rel="next" title="Facebook 网页应用图文设置教程">
+                <i class="fa fa-chevron-left"></i> Facebook 网页应用图文设置教程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2015/11/12/pull-refresh/"
+           data-title="来一发，网页下拉刷新" data-url="http://pyrinelaw.github.io/2015/11/12/pull-refresh/">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Petrus.Law</p>
+              <p class="site-description motion-element" itemprop="description">Petrus.Law 's blog, 前端瞎扯淡</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单的效果图"><span class="nav-number">1.</span> <span class="nav-text">简单的效果图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下拉刷新实现流程"><span class="nav-number">2.</span> <span class="nav-text">下拉刷新实现流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态样式"><span class="nav-number">3.</span> <span class="nav-text">静态样式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定义初始数据"><span class="nav-number">4.</span> <span class="nav-text">定义初始数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始触摸"><span class="nav-number">5.</span> <span class="nav-text">开始触摸</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#触摸移动过程"><span class="nav-number">6.</span> <span class="nav-text">触摸移动过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#触摸结束，请求数据"><span class="nav-number">7.</span> <span class="nav-text">触摸结束，请求数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关"><span class="nav-number">8.</span> <span class="nav-text">相关</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Petrus.Law</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"petrus"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
