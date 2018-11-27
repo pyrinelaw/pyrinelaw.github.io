@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="什么是代理在计算机中，客户端A与服务端B进行同行，中间加入中介C进行数据传递，则形成了代理。来个浅显易懂的比喻，三年级二班小明和小花谈恋爱，由于小明和小花座位离的太远，这时候需要小王在中间传递纸条，在这个爱情故事中小王在中间充当了代理作用。 什么是正向代理呢正向代理中，客户端通过代理服务器从服务端收发数据，即为正向代理。举个栗子：有一个局域网，但是只有主机局域访问外部网络的权限，现在所有的机器都需">
+<meta name="description" content="什么是代理在计算机中，客户端A与服务端B进行通信，中间加入中介C进行数据传递，则形成了代理。来个浅显易懂的比喻，三年级二班小明和小花谈恋爱，由于小明和小花座位离的太远，这时候需要小王在中间传递纸条，在这个爱情故事中小王在中间充当了代理作用。 什么是正向代理呢正向代理中，客户端通过代理服务器从服务端收发数据，即为正向代理。举个栗子：有一个局域网，但是只有主机局域访问外部网络的权限，现在所有的机器都需">
 <meta name="keywords" content="nginx">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Nginx反向代理常用配置">
 <meta property="og:url" content="http://pyrinelaw.github.io/2018/04/15/nginx-service-proxy/index.html">
 <meta property="og:site_name" content="Petrus.Law">
-<meta property="og:description" content="什么是代理在计算机中，客户端A与服务端B进行同行，中间加入中介C进行数据传递，则形成了代理。来个浅显易懂的比喻，三年级二班小明和小花谈恋爱，由于小明和小花座位离的太远，这时候需要小王在中间传递纸条，在这个爱情故事中小王在中间充当了代理作用。 什么是正向代理呢正向代理中，客户端通过代理服务器从服务端收发数据，即为正向代理。举个栗子：有一个局域网，但是只有主机局域访问外部网络的权限，现在所有的机器都需">
+<meta property="og:description" content="什么是代理在计算机中，客户端A与服务端B进行通信，中间加入中介C进行数据传递，则形成了代理。来个浅显易懂的比喻，三年级二班小明和小花谈恋爱，由于小明和小花座位离的太远，这时候需要小王在中间传递纸条，在这个爱情故事中小王在中间充当了代理作用。 什么是正向代理呢正向代理中，客户端通过代理服务器从服务端收发数据，即为正向代理。举个栗子：有一个局域网，但是只有主机局域访问外部网络的权限，现在所有的机器都需">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://pyrinelaw.github.io/assset/images/3255814248-5ad4b90cedd6c_articlex.png">
 <meta property="og:image" content="http://pyrinelaw.github.io/assset/images/3166517317-5ad4b93f7dd4b_articlex.png">
-<meta property="og:updated_time" content="2018-04-17T14:57:03.000Z">
+<meta property="og:updated_time" content="2018-11-27T08:14:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nginx反向代理常用配置">
-<meta name="twitter:description" content="什么是代理在计算机中，客户端A与服务端B进行同行，中间加入中介C进行数据传递，则形成了代理。来个浅显易懂的比喻，三年级二班小明和小花谈恋爱，由于小明和小花座位离的太远，这时候需要小王在中间传递纸条，在这个爱情故事中小王在中间充当了代理作用。 什么是正向代理呢正向代理中，客户端通过代理服务器从服务端收发数据，即为正向代理。举个栗子：有一个局域网，但是只有主机局域访问外部网络的权限，现在所有的机器都需">
+<meta name="twitter:description" content="什么是代理在计算机中，客户端A与服务端B进行通信，中间加入中介C进行数据传递，则形成了代理。来个浅显易懂的比喻，三年级二班小明和小花谈恋爱，由于小明和小花座位离的太远，这时候需要小王在中间传递纸条，在这个爱情故事中小王在中间充当了代理作用。 什么是正向代理呢正向代理中，客户端通过代理服务器从服务端收发数据，即为正向代理。举个栗子：有一个局域网，但是只有主机局域访问外部网络的权限，现在所有的机器都需">
 <meta name="twitter:image" content="http://pyrinelaw.github.io/assset/images/3255814248-5ad4b90cedd6c_articlex.png">
 
 
@@ -404,9 +404,9 @@
       
 
       
-        <h3 id="什么是代理"><a href="#什么是代理" class="headerlink" title="什么是代理"></a>什么是代理</h3><p>在计算机中，客户端A与服务端B进行同行，中间加入中介C进行数据传递，则形成了代理。来个浅显易懂的比喻，三年级二班小明和小花谈恋爱，由于小明和小花座位离的太远，这时候需要小王在中间传递纸条，在这个爱情故事中小王在中间充当了代理作用。</p>
-<h3 id="什么是正向代理呢"><a href="#什么是正向代理呢" class="headerlink" title="什么是正向代理呢"></a>什么是正向代理呢</h3><p>正向代理中，客户端通过代理服务器从服务端收发数据，即为正向代理。<br>举个栗子：有一个局域网，但是只有主机局域访问外部网络的权限，现在所有的机器都需要访问外部网络，通过将主机设置为代理服务器，让所有的机器通过主机可以访问外部网络，即称为正向代理。<br><a id="more"></a><br><img src="/assset/images/3255814248-5ad4b90cedd6c_articlex.png" alt="clipboard.png"></p>
-<h3 id="反向代理又是什么"><a href="#反向代理又是什么" class="headerlink" title="反向代理又是什么"></a>反向代理又是什么</h3><p>反向代理中，代理服务器替服务端收发数据，所有的请求与相应都经过反向代理，可以用来实现数据缓存，负载均衡等。<br>举个栗子: 张三开了一个保险公司（服务端），一开始公司业务小，一个人接电话就够了，后来随着公司扩张，每天无数电话打进来，张三招了一个客服李四（代理），张三把和客户对接的事情都交给了李四，形成了反向代理。<br><img src="/assset/images/3166517317-5ad4b93f7dd4b_articlex.png" alt="clipboard.png"></p>
+        <h3 id="什么是代理"><a href="#什么是代理" class="headerlink" title="什么是代理"></a>什么是代理</h3><p>在计算机中，客户端A与服务端B进行通信，中间加入中介C进行数据传递，则形成了代理。来个浅显易懂的比喻，三年级二班小明和小花谈恋爱，由于小明和小花座位离的太远，这时候需要小王在中间传递纸条，在这个爱情故事中小王在中间充当了代理作用。</p>
+<h3 id="什么是正向代理呢"><a href="#什么是正向代理呢" class="headerlink" title="什么是正向代理呢"></a>什么是正向代理呢</h3><p>正向代理中，客户端通过代理服务器从服务端收发数据，即为正向代理。<br>举个栗子：有一个局域网，但是只有主机局域访问外部网络的权限，现在所有的机器都需要访问外部网络，通过将主机设置为代理服务器，让所有的机器通过主机可以访问外部网络，即称为正向代理。<br><a id="more"></a><br><img src="/assset/images/3255814248-5ad4b90cedd6c_articlex.png" alt="正向代理示意图"></p>
+<h3 id="反向代理又是什么"><a href="#反向代理又是什么" class="headerlink" title="反向代理又是什么"></a>反向代理又是什么</h3><p>反向代理中，代理服务器替服务端收发数据，所有的请求与相应都经过反向代理，可以用来实现数据缓存，负载均衡等。<br>举个栗子: 张三开了一个保险公司（服务端），一开始公司业务小，一个人接电话就够了，后来随着公司扩张，每天无数电话打进来，张三招了一个客服李四（代理），张三把和客户对接的事情都交给了李四，形成了反向代理。<br><img src="/assset/images/3166517317-5ad4b93f7dd4b_articlex.png" alt="反向代理示意图"></p>
 <h3 id="反向代理常用配置"><a href="#反向代理常用配置" class="headerlink" title="反向代理常用配置"></a>反向代理常用配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  localhost;  <span class="comment">#实际情况可以写域名    </span></span><br><span class="line">    location / &#123;</span><br><span class="line">         index  index.html index.htm;</span><br><span class="line">         proxy_set_header Host <span class="variable">$host</span>:<span class="variable">$server_port</span>;</span><br><span class="line">         proxy_pass http://127.0.0.1:9992;</span><br><span class="line">         rewrite ^/(.*)  /index.php?s=<span class="variable">$1</span>;    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>配置项很多，挑几个几个常用的配置依次介绍：location、proxy_set_header、rewrite、proxy_pass</p>
 <h3 id="代理目录匹配-location"><a href="#代理目录匹配-location" class="headerlink" title="代理目录匹配 location"></a>代理目录匹配 location</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 匹配所有根目录</span></span><br><span class="line">location /</span><br><span class="line"><span class="comment"># 字符串匹配, 表示匹配所有“/static”开头的目录</span></span><br><span class="line">location /static</span><br><span class="line"><span class="comment"># ~ 匹配符合表达式目录比如代理目录中存在“static/(js|images)”的目录</span></span><br><span class="line">location ~ /static/(js|images)/</span><br><span class="line"><span class="comment"># ~* 加上 * 表示不区分大小写</span></span><br><span class="line">location ~ /static/(js|images)/</span><br><span class="line"><span class="comment"># = 表示精确匹配, 只有"/index"路径才会被代理，"/index/test"将不会被代理</span></span><br><span class="line">location = /index</span><br></pre></td></tr></table></figure>
@@ -544,7 +544,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -555,7 +555,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">1</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -566,7 +566,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
