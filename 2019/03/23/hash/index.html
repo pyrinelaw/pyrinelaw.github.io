@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/favicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="算法,hash," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言最近在看一些NPM库的时候总是看到各种哈希签名算法，之前工作中也有用到过签名算法，但并没有深入理解过其中的原理，于是找了点资料稍微了解了一下，总结了这篇文章。 哈希摘要算法哈希函数（也称散列函数），是一种根据任意长度数据计算出固定签名长度的算法，比如MD5，SHA系列。">
+<meta name="keywords" content="算法,hash">
+<meta property="og:type" content="article">
+<meta property="og:title" content="哈希摘要算法">
+<meta property="og:url" content="http://pyrinelaw.github.io/2019/03/23/hash/index.html">
+<meta property="og:site_name" content="Petrus.Law">
+<meta property="og:description" content="前言最近在看一些NPM库的时候总是看到各种哈希签名算法，之前工作中也有用到过签名算法，但并没有深入理解过其中的原理，于是找了点资料稍微了解了一下，总结了这篇文章。 哈希摘要算法哈希函数（也称散列函数），是一种根据任意长度数据计算出固定签名长度的算法，比如MD5，SHA系列。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://pyrinelaw.github.io/2019/03/23/hash/(/assset/images/hash/1.png">
+<meta property="og:updated_time" content="2019-04-11T14:29:40.119Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="哈希摘要算法">
+<meta name="twitter:description" content="前言最近在看一些NPM库的时候总是看到各种哈希签名算法，之前工作中也有用到过签名算法，但并没有深入理解过其中的原理，于是找了点资料稍微了解了一下，总结了这篇文章。 哈希摘要算法哈希函数（也称散列函数），是一种根据任意长度数据计算出固定签名长度的算法，比如MD5，SHA系列。">
+<meta name="twitter:image" content="http://pyrinelaw.github.io/2019/03/23/hash/(/assset/images/hash/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://pyrinelaw.github.io/2019/03/23/hash/"/>
+
+
+
+
+
+  <title>哈希摘要算法 | Petrus.Law</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-68262129-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?3655bb5625587dd10b4da17ff63e097b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Petrus.Law</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">努力工作, 好好生活</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'c24_xtFoKsjzBXkTkY7Q','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://pyrinelaw.github.io/2019/03/23/hash/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Petrus.Law">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Petrus.Law">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">哈希摘要算法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-23T00:00:00+08:00">
+                2019-03-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术随笔/" itemprop="url" rel="index">
+                    <span itemprop="name">技术随笔</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/23/hash/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/03/23/hash/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>最近在看一些NPM库的时候总是看到各种哈希签名算法，之前工作中也有用到过签名算法，但并没有深入理解过其中的原理，于是找了点资料稍微了解了一下，总结了这篇文章。</p>
+<h4 id="哈希摘要算法"><a href="#哈希摘要算法" class="headerlink" title="哈希摘要算法"></a>哈希摘要算法</h4><p>哈希函数（也称散列函数），是一种根据任意长度数据计算出固定签名长度的算法，比如MD5，SHA系列。</p>
+<a id="more"></a>
+<h4 id="哈希签名摘要算法特点"><a href="#哈希签名摘要算法特点" class="headerlink" title="哈希签名摘要算法特点"></a>哈希签名摘要算法特点</h4><ul>
+<li>不是加密算法，而是一种摘要算法</li>
+<li>不可逆，“单向”函数</li>
+<li>签名长度固定</li>
+<li>存在2的N次方种结果，N表示签名长度</li>
+</ul>
+<h4 id="以MD5为例"><a href="#以MD5为例" class="headerlink" title="以MD5为例"></a>以MD5为例</h4><p>MD5是由美国密码学家罗纳德·李维斯特（Ronald Linn Rivest）设计一种加密算法。</p>
+<ul>
+<li>128个bits长度，也就是16个字节</li>
+<li>输出结果由为“0-F”字符组成，不区分大小写</li>
+<li>存在2的128次方种输出结果</li>
+</ul>
+<h4 id="MD5算法"><a href="#MD5算法" class="headerlink" title="MD5算法"></a>MD5算法</h4><h5 id="一、源数据处理"><a href="#一、源数据处理" class="headerlink" title="一、源数据处理"></a>一、源数据处理</h5><p>计算原文长度(bits)对512求余的结果，需要填充原文使得原文对512求余的结果等于448, 填充的方法是第一位填充1，其余位填充0。填充完后，信息的长度为512 * N + 448。</p>
+<p>剩余64bits存储空间用来填充源信息长度，填充在448byte 数据之后。</p>
+<p>最终经过处理后的数据长度为 512 * N。</p>
+<p>动手画了一张简单的图来说明：</p>
+<p><img src="(/assset/images/hash/1.png" alt="示意图">)</p>
+<h5 id="二、处理数据"><a href="#二、处理数据" class="headerlink" title="二、处理数据"></a>二、处理数据</h5><p>1、数据进行处理前，会定义4个常量，作为初始值<br>这4个常量分别是<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">0x67452301</span>;</span><br><span class="line"><span class="keyword">var</span> b = <span class="number">0xEFCDAB89</span>;</span><br><span class="line"><span class="keyword">var</span> c = <span class="number">0x98BADCFE</span>;</span><br><span class="line"><span class="keyword">var</span> d = <span class="number">0x10325476</span>;</span><br></pre></td></tr></table></figure></p>
+<p>翻译成二进制就是<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a =  <span class="number">1732584193</span>;</span><br><span class="line"><span class="keyword">var</span> b = <span class="number">-271733879</span>;</span><br><span class="line"><span class="keyword">var</span> c = <span class="number">-1732584194</span>;</span><br><span class="line"><span class="keyword">var</span> d =  <span class="number">271733878</span>;</span><br></pre></td></tr></table></figure></p>
+<p>2、将处理后的数据，外循环处理N次，N为第一步中512的整数倍。<br>每次外循环处理的会产生新的“a、b、c、d”值，每次新产生的“a、b、c、d”值会再一次提供给下一次外循环使用</p>
+<p>3、在每个外循环中又进行内循环处理64次，在这64次数据处理中会不停的将 512 bytes 数据中的 16个小单元不停的通过4个函数进行交叉处理，共计进行64轮计算。</p>
+<p>4、最终生成新的“a、b、c、d”，新的“a、b、c、d”分别是占用32bytes的数据</p>
+<p>5、最终生成的“a、b、c、d”转换为对应的ascll占用的字节，32 bytes * 4 = 128 bytes， 一个字节占用8个bytes， 也就是16个字节,16个字节转换为ASCII码，再将ASCII码转换为16进制数据，即可得到一个32个字节长度的hash值。</p>
+<p>内外循环代码<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">binl_md5</span>(<span class="params">x, len</span>) </span>&#123;</span><br><span class="line">    <span class="comment">/* append padding */</span></span><br><span class="line">    x[len &gt;&gt; <span class="number">5</span>] = x[len &gt;&gt; <span class="number">5</span>] | <span class="number">0x80</span> &lt;&lt; (len % <span class="number">32</span>);</span><br><span class="line">    x[(((len + <span class="number">64</span>) &gt;&gt;&gt; <span class="number">9</span>) &lt;&lt; <span class="number">4</span>) + <span class="number">14</span>] = len;    </span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> i, olda, oldb, oldc, oldd,</span><br><span class="line">        a =  <span class="number">1732584193</span>,</span><br><span class="line">        b = <span class="number">-271733879</span>,</span><br><span class="line">        c = <span class="number">-1732584194</span>,</span><br><span class="line">        d =  <span class="number">271733878</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 每次计算位移值，可以理解为是常量</span></span><br><span class="line">    <span class="keyword">var</span> ffShift = [<span class="number">7</span>, <span class="number">12</span>, <span class="number">17</span>, <span class="number">22</span>,  <span class="number">7</span>, <span class="number">12</span>, <span class="number">17</span>, <span class="number">22</span>,  <span class="number">7</span>, <span class="number">12</span>, <span class="number">17</span>, <span class="number">22</span>,  <span class="number">7</span>, <span class="number">12</span>, <span class="number">17</span>, <span class="number">22</span>];</span><br><span class="line">    <span class="keyword">var</span> ggShift = [<span class="number">5</span>,  <span class="number">9</span>, <span class="number">14</span>, <span class="number">20</span>,  <span class="number">5</span>,  <span class="number">9</span>, <span class="number">14</span>, <span class="number">20</span>,  <span class="number">5</span>,  <span class="number">9</span>, <span class="number">14</span>, <span class="number">20</span>,  <span class="number">5</span>,  <span class="number">9</span>, <span class="number">14</span>, <span class="number">20</span>];</span><br><span class="line">    <span class="keyword">var</span> hhShift = [<span class="number">4</span>, <span class="number">11</span>, <span class="number">16</span>, <span class="number">23</span>,  <span class="number">4</span>, <span class="number">11</span>, <span class="number">16</span>, <span class="number">23</span>,  <span class="number">4</span>, <span class="number">11</span>, <span class="number">16</span>, <span class="number">23</span>,  <span class="number">4</span>, <span class="number">11</span>, <span class="number">16</span>, <span class="number">23</span>];</span><br><span class="line">    <span class="keyword">var</span> iiShift = [<span class="number">6</span>, <span class="number">10</span>, <span class="number">15</span>, <span class="number">21</span>,  <span class="number">6</span>, <span class="number">10</span>, <span class="number">15</span>, <span class="number">21</span>,  <span class="number">6</span>, <span class="number">10</span>, <span class="number">15</span>, <span class="number">21</span>,  <span class="number">6</span>, <span class="number">10</span>, <span class="number">15</span>, <span class="number">21</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Todo: 四个字节一组，每个组别之间不停的交叉计算，不停的根据已计算出来的值多次计算赋值</span></span><br><span class="line">    <span class="comment">// x[i]装的是4个字节的数据</span></span><br><span class="line">    <span class="comment">// x.length 为 512 * N / 32</span></span><br><span class="line">    <span class="comment">// i += 16 每512bits长度的数据分为了16组，而每次循环的计算单位是以512为一个单元的，所以每次都是+16 </span></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; x.length; i += <span class="number">16</span>) &#123;</span><br><span class="line">        olda = a;</span><br><span class="line">        oldb = b;</span><br><span class="line">        oldc = c;</span><br><span class="line">        oldd = d;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 64轮计算中包含原始“a、b、c、d”值。 </span></span><br><span class="line">        <span class="comment">// 以及位移值，以及一个计算常量，这两个是MD5规范中所定义的常量</span></span><br><span class="line">        a = md5_ff(a, b, c, d, x[i],      ffShift[<span class="number">0</span>], <span class="number">-680876936</span>);</span><br><span class="line">        d = md5_ff(d, a, b, c, x[i +  <span class="number">1</span>], ffShift[<span class="number">1</span>], <span class="number">-389564586</span>);</span><br><span class="line">        c = md5_ff(c, d, a, b, x[i +  <span class="number">2</span>], ffShift[<span class="number">2</span>],  <span class="number">606105819</span>);</span><br><span class="line">        b = md5_ff(b, c, d, a, x[i +  <span class="number">3</span>], ffShift[<span class="number">3</span>], <span class="number">-1044525330</span>);</span><br><span class="line">        a = md5_ff(a, b, c, d, x[i +  <span class="number">4</span>], ffShift[<span class="number">4</span>], <span class="number">-176418897</span>);</span><br><span class="line">        d = md5_ff(d, a, b, c, x[i +  <span class="number">5</span>], ffShift[<span class="number">5</span>],  <span class="number">1200080426</span>);</span><br><span class="line">        c = md5_ff(c, d, a, b, x[i +  <span class="number">6</span>], ffShift[<span class="number">6</span>], <span class="number">-1473231341</span>);</span><br><span class="line">        b = md5_ff(b, c, d, a, x[i +  <span class="number">7</span>], ffShift[<span class="number">7</span>], <span class="number">-45705983</span>);</span><br><span class="line">        a = md5_ff(a, b, c, d, x[i +  <span class="number">8</span>], ffShift[<span class="number">8</span>],  <span class="number">1770035416</span>);</span><br><span class="line">        d = md5_ff(d, a, b, c, x[i +  <span class="number">9</span>], ffShift[<span class="number">9</span>], <span class="number">-1958414417</span>);</span><br><span class="line">        c = md5_ff(c, d, a, b, x[i + <span class="number">10</span>], ffShift[<span class="number">10</span>], <span class="number">-42063</span>);</span><br><span class="line">        b = md5_ff(b, c, d, a, x[i + <span class="number">11</span>], ffShift[<span class="number">11</span>], <span class="number">-1990404162</span>);</span><br><span class="line">        a = md5_ff(a, b, c, d, x[i + <span class="number">12</span>], ffShift[<span class="number">12</span>],  <span class="number">1804603682</span>);</span><br><span class="line">        d = md5_ff(d, a, b, c, x[i + <span class="number">13</span>], ffShift[<span class="number">13</span>], <span class="number">-40341101</span>);</span><br><span class="line">        c = md5_ff(c, d, a, b, x[i + <span class="number">14</span>], ffShift[<span class="number">14</span>], <span class="number">-1502002290</span>);</span><br><span class="line">        b = md5_ff(b, c, d, a, x[i + <span class="number">15</span>], ffShift[<span class="number">15</span>],  <span class="number">1236535329</span>);</span><br><span class="line"></span><br><span class="line">        a = md5_gg(a, b, c, d, x[i +  <span class="number">1</span>], ggShift[<span class="number">0</span>], <span class="number">-165796510</span>);</span><br><span class="line">        d = md5_gg(d, a, b, c, x[i +  <span class="number">6</span>], ggShift[<span class="number">1</span>], <span class="number">-1069501632</span>);</span><br><span class="line">        c = md5_gg(c, d, a, b, x[i + <span class="number">11</span>], ggShift[<span class="number">2</span>],  <span class="number">643717713</span>);</span><br><span class="line">        b = md5_gg(b, c, d, a, x[i],      ggShift[<span class="number">3</span>], <span class="number">-373897302</span>);</span><br><span class="line">        a = md5_gg(a, b, c, d, x[i +  <span class="number">5</span>], ggShift[<span class="number">4</span>], <span class="number">-701558691</span>);</span><br><span class="line">        d = md5_gg(d, a, b, c, x[i + <span class="number">10</span>], ggShift[<span class="number">5</span>],  <span class="number">38016083</span>);</span><br><span class="line">        c = md5_gg(c, d, a, b, x[i + <span class="number">15</span>], ggShift[<span class="number">6</span>], <span class="number">-660478335</span>);</span><br><span class="line">        b = md5_gg(b, c, d, a, x[i +  <span class="number">4</span>], ggShift[<span class="number">7</span>], <span class="number">-405537848</span>);</span><br><span class="line">        a = md5_gg(a, b, c, d, x[i +  <span class="number">9</span>], ggShift[<span class="number">8</span>],  <span class="number">568446438</span>);</span><br><span class="line">        d = md5_gg(d, a, b, c, x[i + <span class="number">14</span>], ggShift[<span class="number">9</span>], <span class="number">-1019803690</span>);</span><br><span class="line">        c = md5_gg(c, d, a, b, x[i +  <span class="number">3</span>], ggShift[<span class="number">10</span>], <span class="number">-187363961</span>);</span><br><span class="line">        b = md5_gg(b, c, d, a, x[i +  <span class="number">8</span>], ggShift[<span class="number">11</span>],  <span class="number">1163531501</span>);</span><br><span class="line">        a = md5_gg(a, b, c, d, x[i + <span class="number">13</span>], ggShift[<span class="number">12</span>], <span class="number">-1444681467</span>);</span><br><span class="line">        d = md5_gg(d, a, b, c, x[i +  <span class="number">2</span>], ggShift[<span class="number">13</span>], <span class="number">-51403784</span>);</span><br><span class="line">        c = md5_gg(c, d, a, b, x[i +  <span class="number">7</span>], ggShift[<span class="number">14</span>],  <span class="number">1735328473</span>);</span><br><span class="line">        b = md5_gg(b, c, d, a, x[i + <span class="number">12</span>], ggShift[<span class="number">15</span>], <span class="number">-1926607734</span>);</span><br><span class="line"></span><br><span class="line">        a = md5_hh(a, b, c, d, x[i +  <span class="number">5</span>], hhShift[<span class="number">0</span>], <span class="number">-378558</span>);</span><br><span class="line">        d = md5_hh(d, a, b, c, x[i +  <span class="number">8</span>], hhShift[<span class="number">1</span>], <span class="number">-2022574463</span>);</span><br><span class="line">        c = md5_hh(c, d, a, b, x[i + <span class="number">11</span>], hhShift[<span class="number">2</span>],  <span class="number">1839030562</span>);</span><br><span class="line">        b = md5_hh(b, c, d, a, x[i + <span class="number">14</span>], hhShift[<span class="number">3</span>], <span class="number">-35309556</span>);</span><br><span class="line">        a = md5_hh(a, b, c, d, x[i +  <span class="number">1</span>], hhShift[<span class="number">4</span>], <span class="number">-1530992060</span>);</span><br><span class="line">        d = md5_hh(d, a, b, c, x[i +  <span class="number">4</span>], hhShift[<span class="number">5</span>],  <span class="number">1272893353</span>);</span><br><span class="line">        c = md5_hh(c, d, a, b, x[i +  <span class="number">7</span>], hhShift[<span class="number">6</span>], <span class="number">-155497632</span>);</span><br><span class="line">        b = md5_hh(b, c, d, a, x[i + <span class="number">10</span>], hhShift[<span class="number">7</span>], <span class="number">-1094730640</span>);</span><br><span class="line">        a = md5_hh(a, b, c, d, x[i + <span class="number">13</span>], hhShift[<span class="number">8</span>],  <span class="number">681279174</span>);</span><br><span class="line">        d = md5_hh(d, a, b, c, x[i],      hhShift[<span class="number">9</span>], <span class="number">-358537222</span>);</span><br><span class="line">        c = md5_hh(c, d, a, b, x[i +  <span class="number">3</span>], hhShift[<span class="number">10</span>], <span class="number">-722521979</span>);</span><br><span class="line">        b = md5_hh(b, c, d, a, x[i +  <span class="number">6</span>], hhShift[<span class="number">11</span>],  <span class="number">76029189</span>);</span><br><span class="line">        a = md5_hh(a, b, c, d, x[i +  <span class="number">9</span>], hhShift[<span class="number">12</span>], <span class="number">-640364487</span>);</span><br><span class="line">        d = md5_hh(d, a, b, c, x[i + <span class="number">12</span>], hhShift[<span class="number">13</span>], <span class="number">-421815835</span>);</span><br><span class="line">        c = md5_hh(c, d, a, b, x[i + <span class="number">15</span>], hhShift[<span class="number">14</span>],  <span class="number">530742520</span>);</span><br><span class="line">        b = md5_hh(b, c, d, a, x[i +  <span class="number">2</span>], hhShift[<span class="number">15</span>], <span class="number">-995338651</span>);</span><br><span class="line"></span><br><span class="line">        a = md5_ii(a, b, c, d, x[i],      iiShift[<span class="number">0</span>], <span class="number">-198630844</span>);</span><br><span class="line">        d = md5_ii(d, a, b, c, x[i +  <span class="number">7</span>], iiShift[<span class="number">1</span>],  <span class="number">1126891415</span>);</span><br><span class="line">        c = md5_ii(c, d, a, b, x[i + <span class="number">14</span>], iiShift[<span class="number">2</span>], <span class="number">-1416354905</span>);</span><br><span class="line">        b = md5_ii(b, c, d, a, x[i +  <span class="number">5</span>], iiShift[<span class="number">3</span>], <span class="number">-57434055</span>);</span><br><span class="line">        a = md5_ii(a, b, c, d, x[i + <span class="number">12</span>], iiShift[<span class="number">4</span>],  <span class="number">1700485571</span>);</span><br><span class="line">        d = md5_ii(d, a, b, c, x[i +  <span class="number">3</span>], iiShift[<span class="number">5</span>], <span class="number">-1894986606</span>);</span><br><span class="line">        c = md5_ii(c, d, a, b, x[i + <span class="number">10</span>], iiShift[<span class="number">6</span>], <span class="number">-1051523</span>);</span><br><span class="line">        b = md5_ii(b, c, d, a, x[i +  <span class="number">1</span>], iiShift[<span class="number">7</span>], <span class="number">-2054922799</span>);</span><br><span class="line">        a = md5_ii(a, b, c, d, x[i +  <span class="number">8</span>], iiShift[<span class="number">8</span>],  <span class="number">1873313359</span>);</span><br><span class="line">        d = md5_ii(d, a, b, c, x[i + <span class="number">15</span>], iiShift[<span class="number">9</span>], <span class="number">-30611744</span>);</span><br><span class="line">        c = md5_ii(c, d, a, b, x[i +  <span class="number">6</span>], iiShift[<span class="number">10</span>], <span class="number">-1560198380</span>);</span><br><span class="line">        b = md5_ii(b, c, d, a, x[i + <span class="number">13</span>], iiShift[<span class="number">11</span>],  <span class="number">1309151649</span>);</span><br><span class="line">        a = md5_ii(a, b, c, d, x[i +  <span class="number">4</span>], iiShift[<span class="number">12</span>], <span class="number">-145523070</span>);</span><br><span class="line">        d = md5_ii(d, a, b, c, x[i + <span class="number">11</span>], iiShift[<span class="number">13</span>], <span class="number">-1120210379</span>);</span><br><span class="line">        c = md5_ii(c, d, a, b, x[i +  <span class="number">2</span>], iiShift[<span class="number">14</span>],  <span class="number">718787259</span>);</span><br><span class="line">        b = md5_ii(b, c, d, a, x[i +  <span class="number">9</span>], iiShift[<span class="number">15</span>], <span class="number">-343485551</span>);</span><br><span class="line"></span><br><span class="line">        a = safe_add(a, olda);</span><br><span class="line">        b = safe_add(b, oldb);</span><br><span class="line">        c = safe_add(c, oldc);</span><br><span class="line">        d = safe_add(d, oldd);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 最终生成4个占用32 bytes控制的值</span></span><br><span class="line">    <span class="keyword">return</span> [a, b, c, d];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>四轮计算线性函数<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">F(X,Y,Z) =(X&amp;Y)|((~X)&amp;Z) </span><br><span class="line">G(X,Y,Z) =(X&amp;Z)|(Y&amp;(~Z)) </span><br><span class="line">H(X,Y,Z) =X^Y^Z </span><br><span class="line">I(X,Y,Z)=Y^(X|(~Z))</span><br></pre></td></tr></table></figure></p>
+<p>6、第五点可以解释为什么生成的hash值中只会包含“0-F”，且不区分大小写的原因，长度为16。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">rstr2hex</span>(<span class="params">input</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> hex_tab = <span class="string">'0123456789abcdef'</span>,</span><br><span class="line">        output = <span class="string">''</span>,</span><br><span class="line">        x,</span><br><span class="line">        i;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; input.length; i += <span class="number">1</span>) &#123;</span><br><span class="line">        x = input.charCodeAt(i);</span><br><span class="line">        output += hex_tab.charAt((x &gt;&gt;&gt; <span class="number">4</span>) &amp; <span class="number">0x0F</span>) +</span><br><span class="line">            hex_tab.charAt(x &amp; <span class="number">0x0F</span>); x:$&#123;input.charCodeAt(i)&#125;, <span class="attr">output</span>: $&#123;output&#125;<span class="string">`);</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">    return output;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>以上代码来自 <a href="https://github.com/blueimp/JavaScript-MD5" target="_blank" rel="noopener">https://github.com/blueimp/JavaScript-MD5</a>，稍有改动。</p>
+<h4 id="适用场景："><a href="#适用场景：" class="headerlink" title="适用场景："></a>适用场景：</h4><ul>
+<li>私密数据加密，比如用户密码一般都不会明文存储，而是通过加密后存入数据库</li>
+<li>赌场开盘前将开票结果公布，开盘后通过签名对比校验是否存在作弊行为</li>
+<li>检测文件是否下载完成，比如迅雷下载</li>
+<li>…</li>
+</ul>
+<h4 id="如何破解"><a href="#如何破解" class="headerlink" title="如何破解"></a>如何破解</h4><p>MD5中，虽然由源文可以推导出签名，反过来，并不能由签名推导出源文。但MD5并不是坚不可摧，目前有两种破解方式</p>
+<ul>
+<li>碰撞法，虽然MD5签名存在2的128次方种输出结果，但每个签名对应的原文并不是唯一的，只要计算机性能够强大，给予充足的时间，总能找到能输出相同签名的数据源。</li>
+<li>映射法，把常规字符串对应的签名存储，比如常用的“123456”，“abcdefg”等。当得到MD5签名时，就可以映射出源数据。</li>
+</ul>
+<h4 id="如何防范："><a href="#如何防范：" class="headerlink" title="如何防范："></a>如何防范：</h4><ul>
+<li>使用安全性更高的SHA256，并不是说SHA256不能被破解，只是相对于MD5来说算法步骤更多，也更复杂，破解难度更大。</li>
+<li>源数据 + KEY，比如“123456”加上KEY就变成了“123456@#DFF23DS”,其中“@#DFF23DS”就是服务端存储的KEY。“源数据 + KEY” =&gt; 签名。</li>
+<li>源数据 + KEY + 动态数据，KEY有可能会被猜到，如果再加上动态数据的话，破解难度会进一步提升，比如用户名、动态密码。“源数据 + KEY + 动态密码” =&gt; 签名。</li>
+<li>多次MD5，MD5(“123456”)很容易被猜到，MD5(MD5(“123456”)),将MD5后的签名再进行一次MD5呢，如果进行三次，十次，是不是破解的难度会更大，当然这么做会增加计算时间，需要权衡。</li>
+</ul>
+<h5 id="其他："><a href="#其他：" class="headerlink" title="其他："></a>其他：</h5><ul>
+<li>中文编码需要转码，否则前端与后端编码后的值可能不一致。</li>
+<li>除了MD5算法，还存在很多其他形式的哈希函数算法，比如SHA系列，他们的设计思路大体相同。</li>
+</ul>
+<h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><p><a href="http://javascript.ruanyifeng.com/grammar/operator.html" target="_blank" rel="noopener">阮一峰讲解操作符</a><br><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators" target="_blank" rel="noopener">按位移动操作符</a><br><a href="http://tool.oschina.net/hexconvert" target="_blank" rel="noopener">各种进制在线转换</a><br><a href="https://zh.wikipedia.org/wiki/MD5" target="_blank" rel="noopener">维基百科MD5</a><br><a href="https://zh.wikipedia.org/wiki/SHA-2" target="_blank" rel="noopener">维基百科SHA2</a><br><a href="https://www.npmjs.com/package/md5" target="_blank" rel="noopener">NPM MD5</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag"># 算法</a>
+          
+            <a href="/tags/hash/" rel="tag"># hash</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/06/ffc-gfc/" rel="next" title="CSS之FFC/GFC">
+                <i class="fa fa-chevron-left"></i> CSS之FFC/GFC
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2019/03/23/hash/"
+           data-title="哈希摘要算法" data-url="http://pyrinelaw.github.io/2019/03/23/hash/">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Petrus.Law</p>
+              <p class="site-description motion-element" itemprop="description">Petrus.Law 's blog, 前端瞎扯淡</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#哈希摘要算法"><span class="nav-number">2.</span> <span class="nav-text">哈希摘要算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#哈希签名摘要算法特点"><span class="nav-number">3.</span> <span class="nav-text">哈希签名摘要算法特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#以MD5为例"><span class="nav-number">4.</span> <span class="nav-text">以MD5为例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MD5算法"><span class="nav-number">5.</span> <span class="nav-text">MD5算法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#一、源数据处理"><span class="nav-number">5.1.</span> <span class="nav-text">一、源数据处理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二、处理数据"><span class="nav-number">5.2.</span> <span class="nav-text">二、处理数据</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#适用场景："><span class="nav-number">6.</span> <span class="nav-text">适用场景：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何破解"><span class="nav-number">7.</span> <span class="nav-text">如何破解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何防范："><span class="nav-number">8.</span> <span class="nav-text">如何防范：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#其他："><span class="nav-number">8.1.</span> <span class="nav-text">其他：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考资料"><span class="nav-number">9.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Petrus.Law</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"petrus"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
